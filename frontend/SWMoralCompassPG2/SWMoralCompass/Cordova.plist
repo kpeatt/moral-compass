@@ -26,8 +26,6 @@
 	<array/>
 	<key>Plugins</key>
 	<dict>
-		<key>org.apache.cordova.barcodeScanner</key>
-		<string>CDVBarcodeScanner</string>
 		<key>Device</key>
 		<string>CDVDevice</string>
 		<key>Logger</key>
@@ -60,6 +58,8 @@
 		<string>CDVSplashScreen</string>
 		<key>Battery</key>
 		<string>CDVBattery</string>
+		<key>ScanditSDK</key>
+		<string>ScanditSDK</string>
 	</dict>
 </dict>
 </plist>

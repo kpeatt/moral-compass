@@ -9,6 +9,7 @@ local_settings.py
 
 *.bak
 *.orig
+*.db
 
 .Python
 .DS_Store
