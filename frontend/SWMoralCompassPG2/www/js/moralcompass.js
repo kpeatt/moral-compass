@@ -122,6 +122,8 @@ MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr){
 	if (code.indexOf("004800") === 0) return "Unilever";
 	else if (code.indexOf("055000") === 0) return "Nestle";
     else if (code.indexOf("065633") === 0) return "Nature Valley";
+	else if (code.indexOf("004229") === 0) return "Urban Outfitters";
+	else if (code.indexOf("038000") === 0) return "Kellogg";
     else return "unknown";
 }
 
