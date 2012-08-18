@@ -4,3 +4,14 @@
 *.swp
 tags
 local_settings.py
+
+*.bak
+*.orig
+
+.Python
+.DS_Store
+
+bin
+include
+/lib/
+./src/
