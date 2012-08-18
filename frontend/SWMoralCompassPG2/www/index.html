@@ -52,24 +52,9 @@
                 alert("Failed: " + error);
             }
             
-            $("#scan-link").click(function(){
-                alert("Scanning");
+            $("#scan-link").click(function() {
                 scan();
             });
-            
-            function oldScan() {
-                window.plugins.barcodeScanner.scan(
-                    function(result) {
-                        if (result.cancelled)
-                            alert("the user cancelled the scan")
-                        else
-                            alert("we got a barcode: " + result.text)
-                    },
-                    function(error) {
-                        alert("scanning failed: " + error)
-                    }
-                );
-            }
             
             function scan() {
                 ScanditSDK.nativeFunction(success, failure, "nIGuaOlnEeGXNUEZL6NnwOyanGE2nEdWOtIrkDGfuVs", {

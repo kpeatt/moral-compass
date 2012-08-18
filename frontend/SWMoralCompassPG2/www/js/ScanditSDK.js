@@ -75,7 +75,6 @@ var ScanditSDK = {
         if (options == null) {
             options = [];
         }
-alert("good");
         return PhoneGap.exec(success, fail, "ScanditSDK", "scan", [appKey, options]);
     }
 }
