@@ -18,7 +18,25 @@ def get_list_of_company_supporters_of_same_sex_marriage():
 
     return companies
 
-companies = get_list_of_company_supporters_of_same_sex_marriage()
-for a in companies:
-    print a
+def get_companies_against_DOMA():
+    r = requests.get('http://www.huffingtonpost.com/waymon-hudson/over-70-major-companies-f_b_1080485.html')
+    soup = BeautifulSoup(r.text)
+    soup.find('div', {'class': 'entry_body_text'})
+    entry = soup.find('div', {'class': 'entry_body_text'})
+    blockquote = entry.findAll('blockquote')[-1]
+    corps = blockquote.findAllNext('p')[2].__unicode__().split('<br />')
+    companies = []
+    for corp in corps:
+        if '<p>' in corp:
+            companies.append(corp.strip('<p>'))
+        elif '</p>' in corp:
+            companies.append(corp.strip('</p>'))
+        else:
+            companies.append(corp)
 
+    return companies
+
+doma = get_companies_against_DOMA()
+companies = get_list_of_company_supporters_of_same_sex_marriage()
+for a in doma:
+    print a
