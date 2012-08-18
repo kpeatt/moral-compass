@@ -26,10 +26,35 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Hello Cordova</title>
+        
+        <style type="text/css">
+            .mc-barchart{
+                
+            }
+            #mc-barchart-back{
+                
+            }
+            
+            #mc-barchart-front{
+                
+            }
+        </style>
     </head>
     <body>
-        <a href="test.html">Go to test page</a>
-        <a id="scan-link" href="#">scan a bar code</a>
+        
+        <div id="mc-container-home">
+            <ul>
+                <li><a id="mc-button-home-scan">scan</a>
+                <li><a id="mc-button-home-quiz">quiz</a>
+                <li><a id="mc-button-home-search">search</a>
+            </ul>
+        </div>
+        <div id="mc-container-quiz"></div>
+        <div id="mc-container-summary">
+            <div id="mc-barchart-back" class="mc-barchart"><div id="mc-barchart-front" class="mc-barchart"></div></div>
+        </div>
+        <div id="mc-container-login"></div>
+        <div id="mc-container-detail"></div>
         
         
         <!-- replace with images! -->
@@ -47,12 +72,29 @@
         <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="js/ScanditSDK.js"></script>
         <script type="text/javascript" src="js/moralcompass.js"></script>
+        <script type="text/javascript" src="js/protovis.js"></script>
         <script type="text/javascript">
             app.initialize();
+            document.addEventListener("deviceready", onDeviceReady, false);
             
+            // variable to hold the current stances on beliefs
+            var myStances = new MCBeliefs();
+            
+            /**
+             *  Handle setup when the device is ready.
+             */
+            function onDeviceReady(){
+                // load the currently saved results
+                myStances.load();
+            }
+
+            
+            // JQuery rigging
             $("#mc-link-scan").click(function() {
                 MCApp.scanBarcode();
             });
+            
+            $("#")
            
             
         </script>

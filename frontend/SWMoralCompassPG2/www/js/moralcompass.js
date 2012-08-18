@@ -60,6 +60,7 @@ MCApp.scanBarcodeWithScandit = function(){
 MCApp.scanBarcodeSuccessScandit = function(concatResult){
     var resultArray = concatResult.split("|"); 
     MCApp.currentBarcode = resultArray[1];
+    alert(MCApp.getCompanyNameFromBarcode(MCApp.currentBarcode));
 }
 
 /**
@@ -164,6 +165,44 @@ MCApp.getProductNameFromScandit = function(barcodeStr) {
          console.log("Found product: " + MCApp.currentProductName);
     })
     .error(function(jqXHR, textStatus, errorThrown) { alert("Error getting product information: " + errorThrown); });
+}
+
+/**
+ *  Produces a locally-stored company name or "unknown"
+ *  
+ *  string -> string
+ */
+MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr){
+    var code = $.trim(barcodeStr);
+	if (code.indexOf("004800") === 0) return "Unilever";
+	else if (code.indexOf("055000") === 0) return "Nestle";
+    else if (code.indexOf("065633") === 0) return "Nature Valley";
+    else return "unknown";
+}
+
+/**
+ *  Produces a company name from an external database, or "unknown"
+ *  
+ *  string -> string
+ */
+MCApp.getCompanyNameFromBarcodeRemote = function(barcodeStr){
+    MCApp.getProductNameFromGoodGuide(barcodeStr);
+}
+
+MCApp.getCompanyBeliefs = function(companyName){
+    var result = MCApp.getCompanyBeliefsFromLocal(companyName);
+    if(result === false){
+        result = MCApp.getCompanyBeliefsFromServer(companyName);
+    }
+    return result;
+}
+
+MCApp.getCompanyBeliefsFromLocal = function(companyName){
+    if(companyName == "Nature Valley"){
+        return [MCStance.yes(), MCStance.yes(), MCStance.donotcare(), MCStance.donotcare(), MCStance.donotcare()];
+    }else{
+        return false;
+    }
 }
 
 /**
