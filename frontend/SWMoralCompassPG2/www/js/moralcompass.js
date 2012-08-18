@@ -1,3 +1,5 @@
+var GOODGUIDE_API_KEY = "9pvn6sg96kqx9gpnzt46a2mc";
+
 // namespace for all things Moral Compass
 MCApp = {};
 
@@ -85,10 +87,32 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr){
 }
 
 /**
- *  Produces a product name from a barcode result.
+ *  Produces a locally-stored company name or "unknown"
+ *  
+ *  string -> string
  */
-MCApp.getProductNameFromGoodGuide = function(barcodeStr) {
-    var GOODGUIDE_API_KEY = "9pvn6sg96kqx9gpnzt46a2mc";
+MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr){
+    var code = $.trim(barcodeStr);
+	if (code.indexOf("004800") === 0) return "Unilever";
+	else if (code.indexOf("055000") === 0) return "Nestle";
+    else if (code.indexOf("065633") === 0) return "Nature Valley";
+	else if (code.indexOf("004229") === 0) return "Urban Outfitters";
+	else if (code.indexOf("038000") === 0) return "Kellogg";
+    else return "unknown";
+}
+
+/**
+ *  Produces a company name from an external database, or "unknown"
+ *  
+ */
+MCApp.getCompanyNameFromBarcodeRemote = function(barcodeStr){
+    MCApp.getProductInfoFromGoodGuide(barcodeStr);
+}
+
+/**
+ *  Produces a product name and company name from a barcode result.
+ */
+MCApp.getProductInfoFromGoodGuide = function(barcodeStr) {
     console.log("API call: " + 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&upc=" + barcodeStr)
     $.ajax({
             type: "GET",
@@ -96,8 +120,37 @@ MCApp.getProductNameFromGoodGuide = function(barcodeStr) {
             dataType: "xml",
             success: function(xml) {
                 MCApp.currentProductName = $xml.find("name").text();
+                var id = $xml.find("id").text();
+                if (id)
+                    MCApp.getCompanyNameFromGoodGuideID(id);
+                else
+                    MCApp.currentCompanyName = false;
                 console.log("Found product: " + MCApp.currentProductName);
-    	}
+            }
+    });
+}
+
+MCApp.getCompanyNameFromGoodGuideID = function(id) {
+    console.log("API call: " + 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&id=" + id)
+    $.ajax({
+            type: "GET",
+            url: 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&id=" + barcodeStr,
+            dataType: "xml",
+            success: function(xml) {
+                MCApp.currentCompanyName = false;
+                var parents = $xml.find("parents");
+                parents.each(function() {
+                    var entity = $(this).find("entity");
+                    entity.each(function() {
+                        var type = $(this).attr("entity_type");
+                        if (type == "company")
+                            MCApp.currentCompanyName = $(entity).find("name");
+                    }
+                });
+
+                if (MCApp.currentCompanyName)
+                    console.log("Found copmany: " + MCApp.currentCompanyName);
+            }
     });
 }
 
@@ -107,7 +160,8 @@ MCApp.getProductNameFromGoodGuide = function(barcodeStr) {
 MCApp.getProductNameFromScandit = function(barcodeStr) {
     var SCANDIT_PRODUCT_API_KEY = "j_bi-cHjpvbLQopyEOQjJ068Z8yLf2KXKdrzoBvqX-g";
     $.getJSON('https://api.scandit.com/v1/products/' + barcodeStr + '?key=' + SCANDIT_PRODUCT_API_KEY, function(data) {
-         MCApp.currentProductName = data.name;	
+         MCApp.currentProductName = data.name;
+         MCApp.currentCompanyName = "unknown";
          console.log("Found product: " + MCApp.currentProductName);
     })
     .error(function(jqXHR, textStatus, errorThrown) { alert("Error getting product information: " + errorThrown); });
