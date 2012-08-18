@@ -23,7 +23,10 @@
 	<key>BackupWebStorage</key>
 	<true/>
 	<key>ExternalHosts</key>
-	<array/>
+	<array>
+		<string>api.scandit.com</string>
+		<string>api.goodguide.com</string>
+	</array>
 	<key>Plugins</key>
 	<dict>
 		<key>Device</key>
