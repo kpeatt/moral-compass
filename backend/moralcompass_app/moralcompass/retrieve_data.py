@@ -1,5 +1,6 @@
 from BeautifulSoup import BeautifulSoup
 import requests
+import re
 
 def get_list_of_company_supporters_of_same_sex_marriage():
     r = requests.get('http://en.wikipedia.org/wiki/List_of_supporters_of_same-sex_marriage_in_the_United_States#Organizations')
@@ -36,7 +37,28 @@ def get_companies_against_DOMA():
 
     return companies
 
-doma = get_companies_against_DOMA()
+domas = get_companies_against_DOMA()
 companies = get_list_of_company_supporters_of_same_sex_marriage()
-for a in doma:
-    print a
+
+#create a copy of DOMAs
+cp = domas[:]
+#cleaning up names of companies from DOMA list
+for index, val in enumerate(domas):
+        name = val.rsplit(' ', 1)[0] #take the last word from a sentence
+        cp[index] = name.rstrip(',').rstrip('.').strip('\n').lower() #take off , or . at the end
+
+companies_low = [x.lower() for x in companies] #lowercase the names in companies
+
+#item is a company name from DOMA which is also cleaned up bit
+for index, item in enumerate(cp):
+    count = 0
+    #if item does not match words in a company name from 'companies'
+    for comp in companies_low:
+        if item not in comp:
+            count += 1 #increment count by one
+    #if count is equal to length of companies_low, that means it does not exist in the 'companies' list
+    if count == len(companies_low):
+        #so append, but get the company name from original DOMA list
+        companies.append(domas[index].strip('\n'))
+
+#companies is the final list of companies which combines DOMA and ones from Wikipedia
