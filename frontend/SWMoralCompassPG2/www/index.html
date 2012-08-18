@@ -31,33 +31,30 @@
             .mc-barchart{
                 
             }
-            #barchart-back{
+            #mc-barchart-back{
                 
             }
             
-            #barchart-front{
+            #mc-barchart-front{
                 
             }
         </style>
     </head>
     <body>
-        <a href="test.html">Go to test page</a>
-        <a id="scan-link" href="#">scan a bar code</a>
         
-        <div id="barchart-back" class="mc-barchart"><div id="barchart-front" class="mc-barchart"></div></div>
-        
-        
-        <div id="container-home">
+        <div id="mc-container-home">
             <ul>
-                <li><a id="button-home-scan">scan</a>
-                <li><a id="button-home-quiz">quiz</a>
-                <li><a id="button-home-search">search</a>
+                <li><a id="mc-button-home-scan">scan</a>
+                <li><a id="mc-button-home-quiz">quiz</a>
+                <li><a id="mc-button-home-search">search</a>
             </ul>
         </div>
-        <div id="container-quiz"></div>
-        <div id="container-summary"></div>
-        <div id="container-login"></div>
-        <div id="container-detail"></div>
+        <div id="mc-container-quiz"></div>
+        <div id="mc-container-summary">
+            <div id="mc-barchart-back" class="mc-barchart"><div id="mc-barchart-front" class="mc-barchart"></div></div>
+        </div>
+        <div id="mc-container-login"></div>
+        <div id="mc-container-detail"></div>
         
         
         <!-- replace with images! -->
@@ -92,9 +89,12 @@
             }
 
             
+            // JQuery rigging
             $("#mc-link-scan").click(function() {
                 MCApp.scanBarcode();
             });
+            
+            $("#")
            
             
         </script>
