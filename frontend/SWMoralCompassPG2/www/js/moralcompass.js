@@ -55,6 +55,7 @@ MCApp.scanBarcodeWithScandit = function(){
 MCApp.scanBarcodeSuccessScandit = function(concatResult){
     var resultArray = concatResult.split("|"); 
     MCApp.currentBarcode = resultArray[1];
+    alert(MCApp.getCompanyNameFromBarcode(MCApp.currentBarcode));
 }
 
 /**
@@ -99,6 +100,22 @@ MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr){
  */
 MCApp.getCompanyNameFromBarcodeRemote = function(barcodeStr){
     return "unknown";
+}
+
+MCApp.getCompanyBeliefs = function(companyName){
+    var result = MCApp.getCompanyBeliefsFromLocal(companyName);
+    if(result === false){
+        result = MCApp.getCompanyBeliefsFromServer(companyName);
+    }
+    return result;
+}
+
+MCApp.getCompanyBeliefsFromLocal = function(companyName){
+    if(companyName == "Nature Valley"){
+        return [MCStance.yes(), MCStance.yes(), MCStance.donotcare(), MCStance.donotcare(), MCStance.donotcare()];
+    }else{
+        return false;
+    }
 }
 
 /**

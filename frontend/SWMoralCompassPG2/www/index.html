@@ -26,10 +26,25 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Hello Cordova</title>
+        
+        <style type="text/css">
+            .mc-barchart{
+                
+            }
+            #barchart-back{
+                
+            }
+            
+            #barchart-front{
+                
+            }
+        </style>
     </head>
     <body>
         <a href="test.html">Go to test page</a>
         <a id="scan-link" href="#">scan a bar code</a>
+        
+        <div id="barchart-back" class="mc-barchart"><div id="barchart-front" class="mc-barchart"></div></div>
         
         
         <!-- replace with images! -->
@@ -47,9 +62,22 @@
         <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="js/ScanditSDK.js"></script>
         <script type="text/javascript" src="js/moralcompass.js"></script>
+        <script type="text/javascript" src="js/protovis.js"></script>
         <script type="text/javascript">
             app.initialize();
+            document.addEventListener("deviceready", onDeviceReady, false);
             
+            // variable to hold the current stances on beliefs
+            var myStances = new MCBeliefs();
+            
+            /**
+             *  Handle setup when the device is ready.
+             */
+            function onDeviceReady(){
+                // load the currently saved results
+                myStances.load();
+            }
+
             
             $("#mc-link-scan").click(function() {
                 MCApp.scanBarcode();
