@@ -60,7 +60,9 @@ MCApp.scanBarcodeWithScandit = function(){
 MCApp.scanBarcodeSuccessScandit = function(concatResult){
     var resultArray = concatResult.split("|"); 
     MCApp.currentBarcode = resultArray[1];
-    alert(MCApp.getCompanyNameFromBarcode(MCApp.currentBarcode));
+    MCApp.getCompanyNameFromBarcode(MCApp.currentBarcode, function(companyName) {
+        alert("Company: " + companyName);
+    });
 }
 
 /**
@@ -76,14 +78,13 @@ MCApp.scanBarcodeFailScandit = function(){
  *  Produces a company name from a barcode result.
  *  
  */
-MCApp.getCompanyNameFromBarcode = function(barcodeStr){
-    MCApp.getCompanyNameFromBarcodeLocal(barcodeStr);
-    
-    if(result == "unknown"){
-        result = MCApp.getCompanyNameFromBarcodeRemote(barcodeStr);
-    }
-    
-    return result;
+MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
+    MCApp.getCompanyNameFromBarcodeLocal(barcodeStr, function(companyName) {
+        if (companyName)
+            callback(companyName);
+        else
+            MCApp.getCompanyNameFromBarcodeRemote(barcodeStr, callback);
+    });
 }
 
 /**
@@ -91,28 +92,29 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr){
  *  
  *  string -> string
  */
-MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr){
+MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     var code = $.trim(barcodeStr);
-	if (code.indexOf("004800") === 0) return "Unilever";
-	else if (code.indexOf("055000") === 0) return "Nestle";
-    else if (code.indexOf("065633") === 0) return "Nature Valley";
-	else if (code.indexOf("004229") === 0) return "Urban Outfitters";
-	else if (code.indexOf("038000") === 0) return "Kellogg";
-    else return "unknown";
+	if (code.indexOf("004800") === 0) callback("Unilever");
+	else if (code.indexOf("055000") === 0) callback("Nestle");
+    else if (code.indexOf("065633") === 0) callback("Nature Valley");
+	else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
+	else if (code.indexOf("038000") === 0) callback("Kellogg");
+    else callback(false);
 }
 
 /**
  *  Produces a company name from an external database, or "unknown"
  *  
  */
-MCApp.getCompanyNameFromBarcodeRemote = function(barcodeStr){
-    MCApp.getProductInfoFromGoodGuide(barcodeStr);
+MCApp.getCompanyNameFromBarcodeRemote = function(barcodeStr, callback) {
+    //MCApp.getProductInfoFromGoodGuide(barcodeStr, callback);
+    MCApp.getProductInfoFromGoogle(barcodeStr, callback);
 }
 
 /**
  *  Produces a product name and company name from a barcode result.
  */
-MCApp.getProductInfoFromGoodGuide = function(barcodeStr) {
+MCApp.getProductInfoFromGoodGuide = function(barcodeStr, callback) {
     console.log("API call: " + 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&upc=" + barcodeStr)
     $.ajax({
             type: "GET",
@@ -122,15 +124,15 @@ MCApp.getProductInfoFromGoodGuide = function(barcodeStr) {
                 MCApp.currentProductName = $xml.find("name").text();
                 var id = $xml.find("id").text();
                 if (id)
-                    MCApp.getCompanyNameFromGoodGuideID(id);
+                    MCApp.getCompanyNameFromGoodGuideID(id, callback);
                 else
-                    MCApp.currentCompanyName = false;
+                    callback(false);
                 console.log("Found product: " + MCApp.currentProductName);
             }
     });
 }
 
-MCApp.getCompanyNameFromGoodGuideID = function(id) {
+MCApp.getCompanyNameFromGoodGuideID = function(id, callback) {
     console.log("API call: " + 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&id=" + id)
     $.ajax({
             type: "GET",
@@ -143,13 +145,16 @@ MCApp.getCompanyNameFromGoodGuideID = function(id) {
                     var entity = $(this).find("entity");
                     entity.each(function() {
                         var type = $(this).attr("entity_type");
-                        if (type == "company")
+                        if (type == "company") {
                             MCApp.currentCompanyName = $(entity).find("name");
+                        }
                     }
                 });
 
-                if (MCApp.currentCompanyName)
+                if (MCApp.currentCompanyName) {
+                    callback(MCApp.currentCompanyName);
                     console.log("Found copmany: " + MCApp.currentCompanyName);
+                }
             }
     });
 }
@@ -167,26 +172,16 @@ MCApp.getProductNameFromScandit = function(barcodeStr) {
     .error(function(jqXHR, textStatus, errorThrown) { alert("Error getting product information: " + errorThrown); });
 }
 
-/**
- *  Produces a locally-stored company name or "unknown"
- *  
- *  string -> string
- */
-MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr){
-    var code = $.trim(barcodeStr);
-	if (code.indexOf("004800") === 0) return "Unilever";
-	else if (code.indexOf("055000") === 0) return "Nestle";
-    else if (code.indexOf("065633") === 0) return "Nature Valley";
-    else return "unknown";
-}
-
-/**
- *  Produces a company name from an external database, or "unknown"
- *  
- *  string -> string
- */
-MCApp.getCompanyNameFromBarcodeRemote = function(barcodeStr){
-    MCApp.getProductNameFromGoodGuide(barcodeStr);
+MSCapp.getProductInfoFromGoogle = function(barcodeStr, callback) {
+    var GOOGLE_API_KEY = "AIzaSyBbif9QAPwKnf2YEv-P6xQtlYrMDpotzCY";
+    var request = "https://www.googleapis.com/shopping/search/v1/public/products?key=" + GOOGLE_API_KEY + "&country=US&restrictBy=gtin%3A" + barcodeStr;
+    $.getJSON(request, function(json) {
+        if (json.items) {
+            MCApp.currentProductName = json.items[0].product.title;
+            MCApp.currentCompanyName = json.items[0].product.brand;
+            callback(MCApp.currentCompanyName);
+        }
+    });
 }
 
 MCApp.getCompanyBeliefs = function(companyName){
