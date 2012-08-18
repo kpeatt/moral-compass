@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+                    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<!-- 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+<script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
+-->
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<link rel="stylesheet" href="css/qunit-git.css" type="text/css" media="screen">
+<script type="text/javascript" src="js/qunit-git.js"></script>
+<script type="text/javascript" src="js/moralcompass.js"></script>
+<script type="text/javascript">
+    
+    // Constants
+    
+    /**
+     *  is local storage available?
+     *  
+     *  boolean
+     */
+    var _IS_HAS_LOCAL_STORAGE = (function(){
+       var uid = new Date, storage, result;
+       try{
+           (storage = window.localStorage).setItem(uid, uid);
+           result = storage.getItem(uid) == uid;
+           storage.removeItem(uid);
+           return result && storage;
+       }catch(e){}
+    }());
+    
+    
+    // Functions
+    /**
+     *  Prints a line into the console div below the tests.
+     *  
+     *  void -> void
+     */
+    function println(text){
+        var console = document.getElementById("text-display-container");
+        var oldText = console.innerHTML;
+        console.innerHTML = text + "<br />" + oldText;
+    }
+    
+    function printlnPre(text){
+        var console = document.getElementById("text-display-container");
+        var oldText = console.innerHTML;
+        console.innerHTML = "<pre>" + text + "</pre>" + "<br />" + oldText;
+    }
+    
+    /**
+     *  Is local storage available, and does it work for some test data?
+     *  
+     *  void -> boolean
+     */
+    function isHasValidLocalStorage(){
+        var uid = new Date, storage, result;
+        try{
+            (storage = window.localStorage).setItem(uid, uid);
+            result = storage.getItem(uid) == uid;
+            storage.removeItem(uid);
+            return result && storage;
+        }catch(e){}
+        
+        return false;
+    };
+    
+    /**
+     *  Is local storage present?
+     *  
+     *  void -> boolean
+     */
+    function isHasLocalStorage(){
+        try{
+            return 'localStorage' in window && window['localStorage'] !== null;
+        }catch(e){
+            return false;
+        }
+    }
+    
+    
+    
+    
+</script>
+
+<style type="text/css">
+    .console {font-family: "Courier New",
+                            "Courier",
+                            monospace;}
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        
+        module("Init");
+        test("always true", function(){
+            equal(true, true);
+        });
+        
+        
+        module("MCDictionary stuff");
+        test("dictionary defined", function(){
+            equal(MCBeliefDictionary.getNumBeliefs(), MCBeliefDictionary.beliefArray.length);
+        });
+        
+        if(isHasLocalStorage()){
+            module("MC stance stuff");
+            test("init, save, load", function(){
+                window.localStorage.clear();
+                var stances = new MCBeliefs();
+                
+                equal(stances.isFirstTimeSave(), true);
+                stances.load();
+                equal(stances.isFirstTimeSave(), false);
+                stances.save();
+                equal(stances.isFirstTimeSave(), false);
+                printlnPre(stances.toString());
+                stances.setStance(0, MCStance.no());
+                equal(stances.getStanceAtIdx(0), MCStance.no());
+                stances.load();
+                equal(stances.getStanceAtIdx(0), MCStance.donotcare());
+                stances.setStance(0, MCStance.yes());
+                stances.setStance(2, MCStance.no());
+                stances.save();
+                equal(stances.getStanceAtIdx(0), MCStance.yes());
+                equal(stances.getStanceAtIdx(2), MCStance.no());
+                
+                // need 5 for now, change if number of default causes change
+                var companyStances = [
+                    MCStance.yes(),
+                    MCStance.no(),
+                    MCStance.no(),
+                    MCStance.donotcare(),
+                    MCStance.donotcare()];
+                
+                equal(stances.getNumAgreeToArrayOfCompanyStances(companyStances), 2);
+            });
+        }
+        
+    });
+    </script>
+    <title>Tests!</title>
+</head>
+<body>
+  <h1 id="qunit-header">MoralCompass Javascript Tests</h1>
+ <h2 id="qunit-banner"></h2>
+ <div id="qunit-testrunner-toolbar"></div>
+ <h2 id="qunit-userAgent"></h2>
+ <ol id="qunit-tests"></ol>
+ <div id="qunit-fixture">test markup, will be hidden</div>
+
+ <hr>
+ <h2>Console:</h2>
+ <div id="text-display-container" class="console"></div>
+ 
+</body>
+</html>
