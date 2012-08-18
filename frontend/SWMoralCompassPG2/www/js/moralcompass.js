@@ -145,7 +145,7 @@ MCApp.getCompanyNameFromGoodGuideID = function(id) {
                         var type = $(this).attr("entity_type");
                         if (type == "company")
                             MCApp.currentCompanyName = $(entity).find("name");
-                    }
+                    })
                 });
 
                 if (MCApp.currentCompanyName)
