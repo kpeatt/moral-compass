@@ -29,56 +29,33 @@
     </head>
     <body>
         <a href="test.html">Go to test page</a>
-        <div class="app">
-            <div id="login-container">
-                <div id="button-login"></div>
-                <div id="button-scan"></div>
-            </div>
-            <a id="scan-link" href="#">scan a bar code</a>
-        </div>
+        <a id="scan-link" href="#">scan a bar code</a>
+        
+        
+        <!-- replace with images! -->
+        <ul>
+            <li><a id="mc-link-home" href="index.html">home</a>
+            <li><a id="mc-link-search" href="#">search</a>
+            <li><a id="mc-link-scan" href="#">scan</a>
+            <li><a id="mc-link-survey" href="quiz.html">survey</a>
+            <li><a id="mc-link-settings" href="settings.html">settings</a>
+        </ul>
+        
+        
         <script type="text/javascript" src="cordova-2.0.0.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="js/ScanditSDK.js"></script>
+        <script type="text/javascript" src="js/moralcompass.js"></script>
         <script type="text/javascript">
             app.initialize();
             
-            function success(concatResult) {
-                resultArray = concatResult.split("|");
-                alert("Scanned " + resultArray[0] + " code: " + resultArray[1]);
-            }
             
-            function failure(error) {
-                alert("Failed: " + error);
-            }
-            
-            $("#scan-link").click(function() {
-                scan();
+            $("#mc-link-scan").click(function() {
+                MCApp.scanBarcode();
             });
+           
             
-            function scan() {
-                ScanditSDK.nativeFunction(success, failure, "nIGuaOlnEeGXNUEZL6NnwOyanGE2nEdWOtIrkDGfuVs", {
-                                          "beep": true, 
-                                          "1DScanning" : true, 
-                                          "2DScanning" : true, 
-                                          "scanningHotspot" : "0.5/0.5", 
-                                          "vibrate" : true, 
-                                          "showMostLikelyBarcodeUIElement" : false,
-                                          "textForMostLikelyBarcodeUIElement" : "Most likely barcode",
-                                          "textForInitialScanScreenState" : "Align code with box",
-                                          "textForBarcodePresenceDetected" : "Align code and hold still",
-                                          "textForBarcodeDecodingInProgress" : "Decoding",
-                                          "searchBarActionButtonCaption" : "Go",
-                                          "searchBarCancelButtonCaption" : "Cancel",
-                                          "searchBarPlaceholderText" : "Scan barcode or enter it here",
-                                          "toolBarButtonCaption" : "Cancel",
-                                          "viewfinderColor" : "FFFFFF",
-                                          "viewfinderDecodedColor" : "00FF00",
-                                          "minSearchBarBarcodeLength" : 8,
-                                          "maxSearchBarBarcodeLength" : 15,
-                                          });
-                
-            }
         </script>
     </body>
 </html>
