@@ -38,11 +38,26 @@
         </div>
         <script type="text/javascript" src="cordova-2.0.0.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/barcodescanner.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+        <script type="text/javascript" src="js/ScanditSDK.js"></script>
         <script type="text/javascript">
             app.initialize();
+            
+            function success(concatResult) {
+                resultArray = concatResult.split("|");
+                alert("Scanned " + resultArray[0] + " code: " + resultArray[1]);
+            }
+            
+            function failure(error) {
+                alert("Failed: " + error);
+            }
+            
             $("#scan-link").click(function(){
+                alert("Scanning");
+                scan();
+            });
+            
+            function oldScan() {
                 window.plugins.barcodeScanner.scan(
                     function(result) {
                         if (result.cancelled)
@@ -54,7 +69,31 @@
                         alert("scanning failed: " + error)
                     }
                 );
-            });
+            }
+            
+            function scan() {
+                ScanditSDK.nativeFunction(success, failure, "nIGuaOlnEeGXNUEZL6NnwOyanGE2nEdWOtIrkDGfuVs", {
+                                          "beep": true, 
+                                          "1DScanning" : true, 
+                                          "2DScanning" : true, 
+                                          "scanningHotspot" : "0.5/0.5", 
+                                          "vibrate" : true, 
+                                          "showMostLikelyBarcodeUIElement" : false,
+                                          "textForMostLikelyBarcodeUIElement" : "Most likely barcode",
+                                          "textForInitialScanScreenState" : "Align code with box",
+                                          "textForBarcodePresenceDetected" : "Align code and hold still",
+                                          "textForBarcodeDecodingInProgress" : "Decoding",
+                                          "searchBarActionButtonCaption" : "Go",
+                                          "searchBarCancelButtonCaption" : "Cancel",
+                                          "searchBarPlaceholderText" : "Scan barcode or enter it here",
+                                          "toolBarButtonCaption" : "Cancel",
+                                          "viewfinderColor" : "FFFFFF",
+                                          "viewfinderDecodedColor" : "00FF00",
+                                          "minSearchBarBarcodeLength" : 8,
+                                          "maxSearchBarBarcodeLength" : 15,
+                                          });
+                
+            }
         </script>
     </body>
 </html>
