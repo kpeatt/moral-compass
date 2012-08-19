@@ -30,10 +30,12 @@
     
     &.support .cause-indicator {
         background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greentexture@2x.png) repeat;
+        background-size: auto 118px, 32px auto;
     }
     
     &.oppose .cause-indicator {
         background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-redtexture@2x.png) repeat;
+        background-size: auto 118px, 32px auto;
     }
     
     &.neutral .cause-indicator {
@@ -44,11 +46,69 @@
     
     &.dontknow .cause-indicator {
         background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greytexture@2x.png) repeat;
+        background-size: auto 118px, 32px auto;
     }
     
     .statement {
         margin-bottom: 16px;
         font-size: 22px;
+    }
+    
+    .card {
+        
+        @include pie-clearfix;
+        
+        position: relative;
+        
+        padding: 14px 10px 16px;
+        margin-bottom: 10px;
+        
+        border-top: 2px solid #ccc;
+        
+        background: white;
+        
+        h2 {
+            display: block;
+            width: 230px;
+            font-size: 22px;
+            font-weight: 500;
+            color: #666;
+            
+            span {
+                font-weight: 900;
+                color: #333;
+            }
+        }
+        
+        &:after {
+            content: '';
+            
+            position: absolute;
+            top: 0;
+            right: 0;
+            
+            display: block;
+            width: 30px;
+            height: 30px;
+            
+            background: #ccc;
+        }
+        
+        .causes {
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .chart {
+            
+            &.barcode {
+                
+                
+                
+            }
+            
+        }
+        
     }
         
 }

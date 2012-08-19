@@ -431,21 +431,68 @@ body.search-open {
 /* line 31, scss/pages/_summary.scss */
 #mc-container-summary.support .cause-indicator {
   background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greentexture@2x.png) repeat;
+  background-size: auto 118px, 32px auto;
 }
-/* line 35, scss/pages/_summary.scss */
+/* line 36, scss/pages/_summary.scss */
 #mc-container-summary.oppose .cause-indicator {
   background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-redtexture@2x.png) repeat;
+  background-size: auto 118px, 32px auto;
 }
-/* line 40, scss/pages/_summary.scss */
+/* line 42, scss/pages/_summary.scss */
 #mc-container-summary.neutral .cause-indicator span {
   top: 15px;
 }
-/* line 45, scss/pages/_summary.scss */
+/* line 47, scss/pages/_summary.scss */
 #mc-container-summary.dontknow .cause-indicator {
   background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greytexture@2x.png) repeat;
+  background-size: auto 118px, 32px auto;
 }
-/* line 49, scss/pages/_summary.scss */
+/* line 52, scss/pages/_summary.scss */
 #mc-container-summary .statement {
   margin-bottom: 16px;
   font-size: 22px;
+}
+/* line 57, scss/pages/_summary.scss */
+#mc-container-summary .card {
+  *zoom: 1;
+  position: relative;
+  padding: 14px 10px 16px;
+  margin-bottom: 10px;
+  border-top: 2px solid #ccc;
+  background: white;
+}
+/* line 38, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+#mc-container-summary .card:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 70, scss/pages/_summary.scss */
+#mc-container-summary .card h2 {
+  display: block;
+  width: 230px;
+  font-size: 22px;
+  font-weight: 500;
+  color: #666;
+}
+/* line 77, scss/pages/_summary.scss */
+#mc-container-summary .card h2 span {
+  font-weight: 900;
+  color: #333;
+}
+/* line 83, scss/pages/_summary.scss */
+#mc-container-summary .card:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: #ccc;
+}
+/* line 97, scss/pages/_summary.scss */
+#mc-container-summary .card .causes {
+  height: 0;
+  overflow: hidden;
 }
