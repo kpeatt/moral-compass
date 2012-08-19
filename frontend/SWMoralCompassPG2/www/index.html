@@ -36,7 +36,7 @@
     </head>
     <body class="mc-container-home">
         
-        <header id="mc-topbar" onclick='debugToggleAndShowSummary();'>
+        <header id="mc-topbar" onclick='//debugToggleAndShowSummary();'>
 	       <h1>MoralCode</h1>
            <div id="mc-container-search" class="searchbar">
 	       
@@ -83,6 +83,7 @@
             
             <h1>Set your MoralCode</h1>
             
+            <div id="mc-quiz-list">
             <div class="question">
             
                <h2>Same-sex marriage:</h2> 
@@ -151,7 +152,7 @@
 	           </ul>
 	           
 	       </div>
-	       
+            </div>
 	   </div>
         </div>
         <!-- end quiz -->
@@ -287,6 +288,11 @@
                         $("#"+viewIds[i]).hide();
                         $("body").removeClass(viewIds[i]);
                     }
+                }
+                
+                // special case for quiz
+                if(viewIdToSwitchTo == "mc-container-quiz"){
+                    $('#mc-quiz-list').html(quizView.produceQuizHtml());
                 }
                 
             }
@@ -455,7 +461,10 @@ $('#search_submit').click(function(){
             }
             
             
-            // Quiz view controller
+           // Quiz view controller
+           var quizView = new MCQuizViewController();
+           
+           $('#mc-quiz-list').html(quizView.produceQuizHtml());
             
            mcHideSpinner();
            switchToView("mc-container-home");
