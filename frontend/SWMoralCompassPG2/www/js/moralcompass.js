@@ -554,14 +554,15 @@ MCSummaryViewController = function(){
         var type = this.getIndicatorType();
         
         // TODO: move this somewhere that makes more sense
-        var types = ["support", "oppose", "neutral", "dontknow"];
-        var div = $('#mc-support-indicator');
+        var types = ["support", "oppose", "neutral", "dontknow"],
+            div = $('#mc-support-indicator'),
+            container = div.parent();
         
         // remove all, then add relevent type
         for(var i=0; i<types.length; i++){
-            div.removeClass(types[i]);
+            container.removeClass(types[i]);
         }
-        div.addClass(type);
+        container.addClass(type);
         
         if(type == "support"){
             div.html("support");
