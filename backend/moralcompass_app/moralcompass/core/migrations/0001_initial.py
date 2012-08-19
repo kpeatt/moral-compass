@@ -29,6 +29,7 @@ class Migration(SchemaMigration):
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
             ('cause', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Cause'])),
             ('answer', self.gf('django.db.models.fields.IntegerField')()),
+            ('reference', self.gf('django.db.models.fields.CharField')(max_length=512)),
         ))
         db.send_create_signal('core', ['Stance'])
 
@@ -97,6 +98,7 @@ class Migration(SchemaMigration):
             'cause': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['core.Cause']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'organization': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['core.Organization']", 'null': 'True', 'blank': 'True'}),
+            'reference': ('django.db.models.fields.CharField', [], {'max_length': '512'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True', 'blank': 'True'})
         }
     }

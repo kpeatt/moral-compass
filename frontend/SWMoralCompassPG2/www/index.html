@@ -25,6 +25,7 @@
         <meta name = "format-detection" content = "telephone=no"/>
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link href="css/screen.css" media="screen" rel="stylesheet" type="text/css" />
         <title>Hello Cordova</title>
         <script type="text/javascript" src="cordova-2.0.0.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
@@ -63,16 +64,68 @@
     </head>
     <body>
         
-        <div id="mc-topbar"></div>
+        <header id="mc-topbar">
+	       <h1>MoralCode</h1>
+	</header>
         
-        <div id="mc-container-home" class="container">
-            <ul>
-                <li><a id="mc-button-home-scan" href="#">scan</a>
-                <li><a id="mc-button-home-quiz" href="#">quiz</a>
-                <li><a id="mc-button-home-search" href="#">search</a>
-            </ul>
+        <div id="mc-container-home" class="home">
+	   
+	   <div id="mc-content-home" class="content">
+	       <div id="mc-container-search" class="searchbar">
+	       
+	           <input type="search" placeholder="Enter a company name">
+	           <input type="submit" value="Search">
+	       
+	       </div>
+	       
+	       <nav>
+	           <ul>
+	               <li>
+                           <a href="#" id="mc-button-home-scan" class="button scan">
+	                       Scan a Product
+	                   </a>
+	               </li> 
+	               <li>
+	                   <a href="#" id="mc-button-home-quiz" class="button quiz">
+	                       Set your MoralCode
+	                   </a>
+	               </li>
+	               <li>
+	                   <a href="#" id="mc-button-home-search" class="button search">
+	                       Search for a Company
+	                   </a>
+	               </li>
+	           </ul>
+	           
+	       </nav>
+	       
+	   </div>
         </div>
-        <div id="mc-container-quiz" class="container">quiz!</div>
+        
+        <!-- quiz -->
+        <div id="mc-container-quiz" class="home">
+	   <div id="mc-content-quiz" class="content">
+	       
+	       <div class="question">
+	       
+	           <h2>Same-sex marriage:</h2> 
+	           <ul class="choice">
+	               <li>
+	                   <a href="#" class="button support">Support</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button dontcare">Don't care</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button oppose">Oppose</a>
+	               </li>
+	           </ul>
+	       </div>
+	   </div>
+        </div>
+        <!-- end quiz -->
+        
+        
         <div id="mc-container-summary" class="container">
             <div id="mc-barchart-back" class="mc-barchart"><div id="mc-barchart-front" class="mc-barchart"></div></div>
         </div>
@@ -82,15 +135,17 @@
         
         
         <!-- replace with images! -->
-        <div id="mc-container-footer">
-            <ul>
-                <li><a id="mc-link-home" href="#">home</a>
-                <li><a id="mc-link-search" href="#">search</a>
-                <li><a id="mc-link-scan" href="#">scan</a>
-                <li><a id="mc-link-survey" href="#">survey</a>
-                <li><a id="mc-link-settings" href="#">settings</a>
-            </ul>
-        </div>
+        <footer id="mc-bottom-bar" class="bottomnav">
+	       <nav>
+	           <ul>
+	               <li><a href="#" id="mc-link-home" class="button home">Home</a></li>
+	               <li><a href="#" id="mc-link-search" class="button search">Search</a></li>
+	               <li><a href="#" id="mc-link-scan" class="button scan">Scan</a></li>
+	               <li><a href="#" id="mc-link-survey" class="button quiz">Quiz</a></li>
+	               <li><a href="#" id="mc-link-account" class="button account">Account</a></li>
+	           </ul>
+	       </nav>
+	   </footer>
         
         
         <script type="text/javascript">
@@ -99,6 +154,7 @@
             
             // variable to hold the current stances on beliefs
             var myStances = new MCBeliefs();
+            var isSearchOpen = false;
             
             /**
              *  Handle setup when the device is ready.
@@ -108,15 +164,16 @@
                 myStances.load();
             }
             
-            
+            //////////////////////////////////////////////
             // Controller
-            
+            //////////////////////////////////////////////
             var viewIds = ["mc-container-home",
                                "mc-container-quiz",
                                "mc-container-summary",
                                "mc-container-login",
                                "mc-container-detail",
-                               "mc-container-settings"];
+                               "mc-container-settings",
+                          ];
             
             /**
              *  Is a view Id valid?
@@ -144,12 +201,52 @@
                
                 // show relevent view
                 $("#"+viewIdToSwitchTo).show();
+                $("body").addClass(viewIdToSwitchTo);
                 
                 // hide all others
                 for(var i=0; i<viewIds.length; i++){
                     if(viewIds[i]!=viewIdToSwitchTo){
                         $("#"+viewIds[i]).hide();
+                        $("body").removeClass(viewIds[i]);
                     }
+                }
+                
+            }
+            
+            /**
+             *  Opens the search dialogue.
+             *  
+             *  Adds the search-open class to the body.
+             *  
+             *  void -> void
+             */
+            function searchOpen(){
+                $("body").addClass("search-open");
+                isSearchOpen = true;
+            }
+            
+            /**
+             *  Closes the search dialogue.
+             *  
+             *  Removes the search-open class from the body.
+             *  
+             *  void -> void
+             */
+            function searchClose(){
+                $("body").removeClass("search-open");
+                isSearchOpen = false;
+            }
+            
+            /**
+             *  Toggles the search dialogue.
+             *  
+             *  void -> void
+             */
+            function toggleSearch(){
+                if(isSearchOpen){
+                    searchClose();
+                }else{
+                    searchOpen();
                 }
             }
 
@@ -164,7 +261,7 @@
             });
             
             $("#mc-link-search").click(function(){
-                // unimplemented
+                toggleSearch();
             });
             
             $("#mc-link-scan").click(function() {
@@ -175,7 +272,7 @@
                 switchToView("mc-container-quiz");
             });
             
-            $("#mc-link-settings").click(function(){
+            $("#mc-link-account").click(function(){
                 switchToView("mc-container-settings");
             });
             
@@ -185,11 +282,10 @@
             
             $("#mc-button-home-quiz").click(function(){
                 switchToView("mc-container-quiz");
-                alert("quiz");
             })
             
             $("#mc-button-home-search").click(function(){
-                // unimplemented
+                toggleSearch();
             })
             
             
