@@ -26,6 +26,7 @@
 	<array>
 		<string>api.scandit.com</string>
 		<string>api.goodguide.com</string>
+		<string>www.googleapis.com</string>
 	</array>
 	<key>Plugins</key>
 	<dict>

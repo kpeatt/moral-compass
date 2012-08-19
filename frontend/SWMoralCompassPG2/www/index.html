@@ -26,34 +26,174 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Hello Cordova</title>
-    </head>
-    <body>
-        <a href="test.html">Go to test page</a>
-        <a id="scan-link" href="#">scan a bar code</a>
-        
-        
-        <!-- replace with images! -->
-        <ul>
-            <li><a id="mc-link-home" href="index.html">home</a>
-            <li><a id="mc-link-search" href="#">search</a>
-            <li><a id="mc-link-scan" href="#">scan</a>
-            <li><a id="mc-link-survey" href="quiz.html">survey</a>
-            <li><a id="mc-link-settings" href="settings.html">settings</a>
-        </ul>
-        
-        
         <script type="text/javascript" src="cordova-2.0.0.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="js/ScanditSDK.js"></script>
         <script type="text/javascript" src="js/moralcompass.js"></script>
+        <script type="text/javascript" src="js/protovis.js"></script>
+        
+        <style type="text/css">
+            .container{
+                position:absolute;
+                top:0px;
+                left:0px;
+                width: 100%;
+                height: 80%;
+                background-color: rgb(100, 100, 100);
+            }
+            .mc-barchart{
+                
+            }
+            #mc-barchart-back{
+                
+            }
+            
+            #mc-barchart-front{
+                
+            }
+            #mc-container-footer{
+                position:absolute;
+                top:100px;
+                left:0px;
+                z-index:100;
+                visibility: visible;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div id="mc-topbar"></div>
+        
+        <div id="mc-container-home" class="container">
+            <ul>
+                <li><a id="mc-button-home-scan" href="#">scan</a>
+                <li><a id="mc-button-home-quiz" href="#">quiz</a>
+                <li><a id="mc-button-home-search" href="#">search</a>
+            </ul>
+        </div>
+        <div id="mc-container-quiz" class="container">quiz!</div>
+        <div id="mc-container-summary" class="container">
+            <div id="mc-barchart-back" class="mc-barchart"><div id="mc-barchart-front" class="mc-barchart"></div></div>
+        </div>
+        <div id="mc-container-login" class="container">login!</div>
+        <div id="mc-container-detail" class="container">detail!</div>
+        <div id="mc-container-settings" class="container">settings!</div>
+        
+        
+        <!-- replace with images! -->
+        <div id="mc-container-footer">
+            <ul>
+                <li><a id="mc-link-home" href="#">home</a>
+                <li><a id="mc-link-search" href="#">search</a>
+                <li><a id="mc-link-scan" href="#">scan</a>
+                <li><a id="mc-link-survey" href="#">survey</a>
+                <li><a id="mc-link-settings" href="#">settings</a>
+            </ul>
+        </div>
+        
+        
         <script type="text/javascript">
             app.initialize();
+            document.addEventListener("deviceready", onDeviceReady, false);
+            
+            // variable to hold the current stances on beliefs
+            var myStances = new MCBeliefs();
+            
+            /**
+             *  Handle setup when the device is ready.
+             */
+            function onDeviceReady(){
+                // load the currently saved results
+                myStances.load();
+            }
+            
+            
+            // Controller
+            
+            var viewIds = ["mc-container-home",
+                               "mc-container-quiz",
+                               "mc-container-summary",
+                               "mc-container-login",
+                               "mc-container-detail",
+                               "mc-container-settings"];
+            
+            /**
+             *  Is a view Id valid?
+             *  
+             *  string -> boolean
+             */
+            function isViewIdValid(viewIdToTest){
+                for(var i=0; i<viewIds.length; i++){
+                    if(viewIds[i]==viewIdToTest) return true;
+                }
+                alert(viewIdToTest);
+                return false;
+            }
+                           
+            /**
+             *  Switches to a view.
+             *  
+             *  TODO: program this properly and more efficiently!
+             *  
+             *  string -> void
+             */
+            function switchToView(viewIdToSwitchTo){
+                //alert(viewIdToSwitchTo);
+                if(!isViewIdValid(viewIdToSwitchTo)) return;
+               
+                // show relevent view
+                $("#"+viewIdToSwitchTo).show();
+                
+                // hide all others
+                for(var i=0; i<viewIds.length; i++){
+                    if(viewIds[i]!=viewIdToSwitchTo){
+                        $("#"+viewIds[i]).hide();
+                    }
+                }
+            }
+
+            // home search scan survey setting
+            
+            // JQuery rigging
+
+            
+            
+            $("#mc-link-home").click(function(){
+                switchToView("mc-container-home");
+            });
+            
+            $("#mc-link-search").click(function(){
+                // unimplemented
+            });
             
             $("#mc-link-scan").click(function() {
                 MCApp.scanBarcode();
             });
-           
+            
+            $("#mc-link-survey").click(function(){
+                switchToView("mc-container-quiz");
+            });
+            
+            $("#mc-link-settings").click(function(){
+                switchToView("mc-container-settings");
+            });
+            
+            $("#mc-button-home-scan").click(function(){
+                MCApp.scanBarcode();
+            });
+            
+            $("#mc-button-home-quiz").click(function(){
+                switchToView("mc-container-quiz");
+                alert("quiz");
+            })
+            
+            $("#mc-button-home-search").click(function(){
+                // unimplemented
+            })
+            
+            
+           switchToView("mc-container-home");
             
         </script>
     </body>
