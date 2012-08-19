@@ -137,9 +137,9 @@ MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
     else if (code.indexOf("038000") === 0) callback("Kellogg");
     else if (code.indexOf("057961") === 0) callback("Sun-Rype Products"); 
+    else if (code.indexOf("065633") === 0) callback("Nature Valley");
 
     // specific products at startup weekend
-    else if (code == "065633073814") callback("Nature Valley");
     else if (code == "070847002901") callback("Monster Beverage");
     else if (code == "057961023517") callback("Sun-Rype Products");
 
@@ -715,9 +715,9 @@ MCSummaryViewController = function(){
                 '<div class="question mc-quiz-question" id="'+theDivId+'">\n'+
 	           '<h2>'+theIssueSentenceCase+'</h2>\n'+
 	           '<ul class="choice">\n'+
-	               '<li><a href="#" class="button support" onClick="myStances.setStance('+idx+', MCStance.yes()); myStances.save();$(\'#'+theDivId+'\').remove();">Support</a></li>\n'+
-	               '<li><a href="#" class="button dontcare" onClick="myStances.setStance('+idx+', MCStance.donotcare()); myStances.save();$(\'#'+theDivId+'\').remove();">Don\'t care</a></li>\n'+
-	               '<li><a href="#" class="button oppose" onClick="myStances.setStance('+idx+', MCStance.no()); myStances.save();$(\'#'+theDivId+'\').remove();">Oppose</a></li>\n'+
+	               '<li><a href="#" class="button support" onClick="myStances.setStance('+idx+', MCStance.yes()); myStances.save();$(\'#'+theDivId+'\').fadeOut(300,function() { $(\'#'+theDivId+'\').remove(); });">Support</a></li>\n'+
+	               '<li><a href="#" class="button dontcare" onClick="myStances.setStance('+idx+', MCStance.donotcare()); myStances.save();$(\'#'+theDivId+'\').fadeOut(300,function() { $(\'#'+theDivId+'\').remove();});">Don\'t care</a></li>\n'+
+	               '<li><a href="#" class="button oppose" onClick="myStances.setStance('+idx+', MCStance.no()); myStances.save();$(\'#'+theDivId+'\').fadeOut(300,function() { $(\'#'+theDivId+'\').remove();});">Oppose</a></li>\n'+
 	           '</ul>\n</div>\n';
             return questionSection;
         }
