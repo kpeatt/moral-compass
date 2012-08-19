@@ -28,6 +28,7 @@ html {
 
 * { 
     @include box-sizing(border-box);
+    -webkit-touch-callout: none !important;
 }
 
 /** Mixins **/

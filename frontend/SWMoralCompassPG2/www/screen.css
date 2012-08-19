@@ -101,11 +101,12 @@ html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-touch-callout: none !important;
 }
 
 /** Mixins **/
 /** Elements **/
-/* line 44, scss/_defaults.scss */
+/* line 45, scss/_defaults.scss */
 body {
   position: relative;
   font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
@@ -121,11 +122,11 @@ body {
   -o-transition: padding-top 250ms ease-out;
   transition: padding-top 250ms ease-out;
 }
-/* line 55, scss/_defaults.scss */
+/* line 56, scss/_defaults.scss */
 body.search-open {
   padding-top: 112px;
 }
-/* line 61, scss/_defaults.scss */
+/* line 62, scss/_defaults.scss */
 body .spinner {
   position: absolute;
   z-index: 2;
