@@ -6,14 +6,22 @@ import re, htmlentitydefs
 
 import os, sys 
 from datetime import date, timedelta
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "moralcompass.settings")
-from moralcompass.core.models import Organization, Cause, Stance
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "moralcompass.settings")
+#from moralcompass.core.models import Organization, Cause, Stance
 
 ##
 # Removes HTML or XML character references and entities from a text string.
 #
 # @param text The HTML (or XML) source text.
 # @return The plain text, as a Unicode string, if necessary.
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'moralcompass.settings'
+os.environ['PYTHONPATH'] = '/Users/shawnjan/Projects/moral-compass/backend/moralcompass_app/moralcompass'
+
+from django.core.management import setup_environ
+from moralcompass import settings
+setup_environ(settings)
+from moralcompass.core import models
 
 def get_list_of_company_opposing_same_sex_marriage():
     # such terrible markup ugh :(
@@ -97,11 +105,15 @@ for index, item in enumerate(cp):
 
 good_companies = companies
 
+# get gay marriage issue from database
+marriage = models.Cause.objects.all()[0]
 for company in good_companies:
-    #organization = Organization.objects.create(name=company)
-    #organization.save()
-
-    rights = Cause.objects.filter(question='Same-sex marriage')
-    print rights
+    organization = models.Organization.objects.create(name=company)
+    import pdb
+    pdb.set_trace()
+    organization.save()
+    
+    stance = models.Stance.object.create(organization=organization, cause=marriage, answer=1, reference='http://fake.com')
+    stance.save()
 
 
