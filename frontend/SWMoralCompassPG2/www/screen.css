@@ -595,3 +595,65 @@ body .spinner {
 #mc-container-summary .card.open .causes {
   display: block;
 }
+
+/* line 1, scss/pages/_settings.scss */
+#mc-container-settings {
+  margin: 21px 10px 0;
+}
+/* line 5, scss/pages/_settings.scss */
+#mc-container-settings h1 {
+  margin-bottom: 21px;
+  font-size: 24px;
+  font-weight: 700;
+}
+/* line 14, scss/pages/_settings.scss */
+#mc-container-settings form {
+  *zoom: 1;
+  position: relative;
+  padding: 14px 10px 16px;
+  margin-bottom: 10px;
+  border-top: 2px solid #ccc;
+  background: white;
+}
+/* line 38, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+#mc-container-settings form:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 28, scss/pages/_settings.scss */
+#mc-container-settings form input[type=text],
+#mc-container-settings form input[type=email] {
+  width: 100%;
+  height: 42px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 16px;
+}
+/* line 37, scss/pages/_settings.scss */
+#mc-container-settings form input[type=checkbox] {
+  display: block;
+  float: left;
+  width: 25px;
+  height: 25px;
+  margin-right: 16px;
+}
+/* line 47, scss/pages/_settings.scss */
+#mc-container-settings .button {
+  display: block;
+  width: 100%;
+  padding: 21px 0 21px;
+  border-top: 5px solid #69BE28;
+  background: white url(i/icon-compass-large@2x.png) 15px center no-repeat;
+  background-size: auto 30px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  color: #69BE28;
+}
