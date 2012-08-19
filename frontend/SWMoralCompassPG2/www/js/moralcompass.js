@@ -1,4 +1,5 @@
 var GOODGUIDE_API_KEY = "9pvn6sg96kqx9gpnzt46a2mc";
+var GOOGLE_API_KEY = "AIzaSyBbif9QAPwKnf2YEv-P6xQtlYrMDpotzCY";
 
 // namespace for all things Moral Compass
 MCApp = {};
@@ -96,14 +97,14 @@ MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     var code = $.trim(barcodeStr);
 	if (code.indexOf("004800") === 0) callback("Unilever");
 	else if (code.indexOf("055000") === 0) callback("Nestle");
-    else if (code.indexOf("065633") === 0) callback("Nature Valley");
+    //else if (code.indexOf("065633") === 0) callback("Nature Valley");
 	else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
 	else if (code.indexOf("038000") === 0) callback("Kellogg");
     else callback(false);
 }
 
 /**
- *  Produces a company name from an external database, or "unknown"
+ *  Produces a company name from an external database, or false
  *  
  */
 MCApp.getCompanyNameFromBarcodeRemote = function(barcodeStr, callback) {
@@ -133,7 +134,7 @@ MCApp.getProductInfoFromGoodGuide = function(barcodeStr, callback) {
 }
 
 MCApp.getCompanyNameFromGoodGuideID = function(id, callback) {
-    console.log("API call: " + 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&id=" + id)
+    console.log("API call: " + 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&id=" + id);
     $.ajax({
             type: "GET",
             url: 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&id=" + barcodeStr,
@@ -161,24 +162,27 @@ MCApp.getCompanyNameFromGoodGuideID = function(id, callback) {
 /**
  *  Produces a product name from a barcode result.
  */
-MCApp.getProductNameFromScandit = function(barcodeStr) {
-    var SCANDIT_PRODUCT_API_KEY = "j_bi-cHjpvbLQopyEOQjJ068Z8yLf2KXKdrzoBvqX-g";
-    $.getJSON('https://api.scandit.com/v1/products/' + barcodeStr + '?key=' + SCANDIT_PRODUCT_API_KEY, function(data) {
-         MCApp.currentProductName = data.name;
-         MCApp.currentCompanyName = "unknown";
-         console.log("Found product: " + MCApp.currentProductName);
-    })
-    .error(function(jqXHR, textStatus, errorThrown) { alert("Error getting product information: " + errorThrown); });
-}
+//MCApp.getProductNameFromScandit = function(barcodeStr) {
+//    var SCANDIT_PRODUCT_API_KEY = "j_bi-cHjpvbLQopyEOQjJ068Z8yLf2KXKdrzoBvqX-g";
+//    $.getJSON('https://api.scandit.com/v1/products/' + barcodeStr + '?key=' + SCANDIT_PRODUCT_API_KEY, function(data) {
+//         MCApp.currentProductName = data.name;
+//         MCApp.currentCompanyName = "unknown";
+//         console.log("Found product: " + MCApp.currentProductName);
+//    })
+//    .error(function(jqXHR, textStatus, errorThrown) { alert("Error getting product information: " + errorThrown); });
+//}
 
-MSCapp.getProductInfoFromGoogle = function(barcodeStr, callback) {
-    var GOOGLE_API_KEY = "AIzaSyBbif9QAPwKnf2YEv-P6xQtlYrMDpotzCY";
+MCApp.getProductInfoFromGoogle = function(barcodeStr, callback) {
     var request = "https://www.googleapis.com/shopping/search/v1/public/products?key=" + GOOGLE_API_KEY + "&country=US&restrictBy=gtin%3A" + barcodeStr;
+    console.log("API call: " + request);
     $.getJSON(request, function(json) {
+        console.log(json);
         if (json.items) {
             MCApp.currentProductName = json.items[0].product.title;
             MCApp.currentCompanyName = json.items[0].product.brand;
             callback(MCApp.currentCompanyName);
+        } else {
+            callback(false);
         }
     });
 }
