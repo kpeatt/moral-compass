@@ -128,6 +128,7 @@ body.search-open {
 }
 /* line 62, scss/_defaults.scss */
 body .spinner {
+  display: none;
   position: absolute;
   z-index: 2;
   top: 50%;
@@ -508,9 +509,10 @@ body .spinner {
   display: block;
   width: 30px;
   height: 30px;
-  background: #ccc;
+  background: #cccccc url(i/icon-carat-down@2x.png) center no-repeat;
+  background-size: auto 10px;
 }
-/* line 103, scss/pages/_summary.scss */
+/* line 104, scss/pages/_summary.scss */
 #mc-container-summary .card .chart {
   position: relative;
   height: 10px;
@@ -518,14 +520,14 @@ body .spinner {
   margin-top: 16px;
   background: #C60033;
 }
-/* line 114, scss/pages/_summary.scss */
+/* line 115, scss/pages/_summary.scss */
 #mc-container-summary .card .chart .data {
   position: relative;
   width: 25%;
   height: 10px;
   background: #69BE28;
 }
-/* line 121, scss/pages/_summary.scss */
+/* line 122, scss/pages/_summary.scss */
 #mc-container-summary .card .chart .data:after {
   content: '';
   position: absolute;
@@ -536,11 +538,26 @@ body .spinner {
   height: 12px;
   background: #333;
 }
-/* line 136, scss/pages/_summary.scss */
+/* line 135, scss/pages/_summary.scss */
+#mc-container-summary .card .chart.agree {
+  float: left;
+  width: 45px;
+  height: 45px;
+  background: url(i/bg-chart-usersagree.png) center no-repeat;
+  background-size: 45px;
+  margin-top: 0;
+  margin-right: 16px;
+  margin-bottom: 10px;
+}
+/* line 148, scss/pages/_summary.scss */
 #mc-container-summary .card .causes {
   display: none;
 }
-/* line 140, scss/pages/_summary.scss */
+/* line 156, scss/pages/_summary.scss */
+#mc-container-summary .card.open:after {
+  background-image: url(i/icon-carat-up@2x.png);
+}
+/* line 160, scss/pages/_summary.scss */
 #mc-container-summary .card.open .causes {
   display: block;
 }

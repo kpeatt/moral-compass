@@ -97,8 +97,7 @@
             width: 30px;
             height: 30px;
             
-            background: #ccc url(i/icon-carat-down@2x.png) center no-repeat;
-            background-size: auto 10px;
+            background: #ccc;
         }
         
         .chart {
@@ -132,29 +131,10 @@
                 
             }
             
-            &.agree {
-                float: left;
-                width: 45px;
-                height: 45px;
-                background: url(i/bg-chart-usersagree.png) center no-repeat;
-                background-size: 45px;
-                margin-top: 0;
-                margin-right: 16px;
-                margin-bottom: 10px;
-            }
-            
         }
         
         .causes {
             display: none;
-            
-            li {
-                
-            }
-        }
-        
-        &.open:after {
-            background-image: url(i/icon-carat-up@2x.png)
         }
         
         &.open .causes {
