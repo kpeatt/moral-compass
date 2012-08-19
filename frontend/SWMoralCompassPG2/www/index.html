@@ -188,9 +188,8 @@
                 <div id="mc-support-other-indicator" class="chart agree"></div>
                 <h2 id="mc-support-others-agree-text"><span id="mc-support-others-agree-text-percent">68%</span> of users
                                                      agree with this company.</div>
-            </div>
-            
         </div>
+            
         <!-- end summary -->
         
         <div id="mc-container-login" class="container">login!</div>
@@ -322,6 +321,14 @@
                     searchOpen();
                 }
             }
+            
+            function mcShowSpinner(){
+                $('.spinner').show();
+            }
+            
+            function mcHideSpinner(){
+                $('.spinner').hide();
+            }
 
             // home search scan survey setting
             
@@ -338,6 +345,7 @@
             });
             
             $("#mc-link-scan").click(function() {
+                mcShowSpinner();
                 MCApp.scanBarcode();
             });
             
@@ -350,6 +358,7 @@
             });
             
             $("#mc-button-home-scan").click(function(){
+                mcShowSpinner();
                 MCApp.scanBarcode();
             });
             
@@ -366,7 +375,7 @@
             });
             
             
-            // summary view controller
+            // Summary view controller
             var summaryView = new MCSummaryViewController();
             
             MCApp.handleUpdateAfterCompanyFound = function(){
@@ -379,7 +388,12 @@
                 summaryView.setPercentAgree(numAgree/9);
                 summaryView.setPercentUsersAgree(50);
                 summaryView.updateView();
+                mcHideSpinner();
                 switchToView("mc-container-summary");
+            }
+            
+            MCApp.handleScannerCancelOrFail = function(){
+                mcHideSpinner();
             }
             
             function debugToggleAndShowSummary(){
@@ -389,6 +403,9 @@
             }
             
             
+            // Quiz view controller
+            
+           mcHideSpinner();
            switchToView("mc-container-home");
             
         </script>

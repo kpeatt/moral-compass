@@ -39,6 +39,10 @@ MCApp.handleUpdateAfterCompanyFound = function(){
     alert("update handled");
 }
 
+MCApp.handleScannerCancelOrFail = function(){
+    alert("replace this cancel placeholder function!");
+}
+
 MCApp.getCurrentBarcode = function(){
     return MCApp.currentBarcode;
 }
@@ -95,6 +99,7 @@ MCApp.scanBarcodeSuccessScandit = function(concatResult){
  */
 MCApp.scanBarcodeFailScandit = function(){
     MCApp.currentBarcode = false;
+    MCApp.handleScannerCancelOrFail();
 }
 
 /**
@@ -524,6 +529,14 @@ MCSummaryViewController = function(){
      *  void -> void
      */
     this.updateView = function(){
+        
+        if(MCApp.isDebug()){
+            /*
+            this.setPercentUsersAgree(this.getCompanyName().length*2*10%100);
+            */
+            this.setPercentUsersAgree(66);
+        }
+        
         var isCompanyKnown = this.getCompanyName() != null && this.getCompanyName() != 'unknown';
         
         if(this.getDescriptionWord()!="unknown"){
