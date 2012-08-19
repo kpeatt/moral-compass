@@ -1,6 +1,5 @@
 from BeautifulSoup import BeautifulSoup
 import requests
-import re
 
 def get_list_of_company_supporters_of_same_sex_marriage():
     r = requests.get('http://en.wikipedia.org/wiki/List_of_supporters_of_same-sex_marriage_in_the_United_States#Organizations')
