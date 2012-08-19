@@ -36,6 +36,7 @@ MCApp.getCurrentBarcode = function(){
  */
 MCApp.handleUpdateAfterCompanyFound = function(){
     // Update/replace me as needed!
+    alert("update handled");
 }
 
 MCApp.getCurrentBarcode = function(){
@@ -518,10 +519,11 @@ MCSummaryViewController = function(){
      *  void -> void
      */
     this.updateView = function(){
-        $("mc-support-description").text("You and "+this.getCompanyName()
-            +" are "+this.getDescriptionWord(this.getIsSupport()));
-        $("mc-support-user-agree-text-percent").text(Math.floor(this.getPercentAgree()));
-        $("mc-support-others-agree-text-percent").text(Math.floor(this.getPercentUsersAgree()));
+        $('#mc-support-description').html("You and " + this.getCompanyName()
+                                           + " are " + this.getDescriptionWord(this.getIsSupport()));
+        $('#mc-support-user-agree-text-percent').html(Math.floor(this.getPercentAgree()));
+        $('#mc-support-others-agree-text-percent').html(Math.floor(this.getPercentUsersAgree()));
+        
         
         this.updateBarChart();
         this.updateSupportIndicator()

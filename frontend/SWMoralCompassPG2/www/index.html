@@ -331,7 +331,7 @@
             // summary view controller
             var summaryView = new MCSummaryViewController();
             
-            MCApp.handleUpdateAfterCompany = function(){
+            MCApp.handleUpdateAfterCompanyFound = function(){
                 summaryView.setCompanyName(MCApp.getCurrentCompanyName());
                 var barcode = MCApp.getCurrentBarcode();
                 var testGen = new MCTest();
@@ -339,8 +339,8 @@
                 var numAgree = myStances.getNumAgreeToArrayOfCompanyStances(testVector);
                 summaryView.setPercentAgree(numAgree/9);
                 summaryView.setPercentUsersAgree(50);
+                summaryView.updateView();
                 switchToView("mc-container-summary");
-                alert("handle scan");
             }
             
             
