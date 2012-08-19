@@ -230,11 +230,16 @@ MCApp.getCompanyBeliefsFromServer = function(companyName){
  * 
  */
 MCBeliefDictionary = {};
-MCBeliefDictionary.beliefArray = [  "healthy living",
+MCBeliefDictionary.beliefArray = [
+                                    "same sex marriage",
+                                    "testing on animals",
+                                    "use of child labour",
+                                    "government-set minimum wage",
+                                    "healthy living",
                                     "planet earth",
                                     "gay marriage",
                                     "animal rights",
-                                    "fair trade"];
+                                    "fair trade",];
 MCBeliefDictionary.getBeliefForId = function(idx){
     if(idx < 0 || idx >= MCBeliefDictionary.beliefArray.length) return "unknown";
     return MCBeliefDictionary.beliefArray[idx];
@@ -423,4 +428,12 @@ MCTest.prototype.getTestStancesFromBarcode = function(barcode){
     }
     
     return toyData;
+}
+
+/**
+ *  A quiz item
+ * 
+ */
+MCQuizItem = function(){
+    
 }

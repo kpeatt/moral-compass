@@ -15,11 +15,20 @@
         border-bottom: 1px solid #004199;        
         
         font-weight: 500;
-        font-size: 28px;
+        font-size: 18px;
         text-align: center;
         color: white;
         @include text-shadow(-1px -1px 0 #19598F);
         
-    }    
+    }  
+    
+    .mc-container-home & {
+        
+        h1 {
+            font-size: 28px !important;
+        }
+        
+    }  
     
 }
+

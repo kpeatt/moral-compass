@@ -1,0 +1,76 @@
+#mc-container-quiz {
+    
+    .content {
+    
+        margin: 21px 10px 0;
+        
+    }
+    
+    h1 {
+    
+        margin-bottom: 21px;
+        
+        font-size: 24px;
+        font-weight: 700;
+        
+    }
+    
+    .question {
+    
+        @include pie-clearfix;
+        
+        padding: 14px 10px 16px;
+        margin-bottom: 10px;
+        
+        border-top: 2px solid #ccc;
+        
+        background: white;
+        
+        h2 {
+            float: left;
+            display: block;
+            width: 130px;
+            
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .choice {
+            float: right;
+            display: block;
+            width: 130px;
+            
+            li {
+                display: block;
+                float: left;
+                margin-right: 5px;
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+            
+            .button {
+                @include hidetext;
+                
+                display: block;
+                width: 40px;
+                height: 40px;
+                
+                @include border-radius(2px);
+                
+                background: #69BE28 url(i/icon-support@2x.png) center no-repeat;
+                background-size: 15px auto;
+            }
+            
+            .oppose {
+                background: #C60033 url(i/icon-oppose@2x.png) center no-repeat;
+                background-size: 15px auto;
+            }
+            .dontcare {
+                background: #ccc url(i/icon-dontcare@2x.png) center no-repeat;
+                background-size: auto 16px;
+            }
+        }
+    }
+    
+}

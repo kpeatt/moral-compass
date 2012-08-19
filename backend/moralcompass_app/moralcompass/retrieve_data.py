@@ -1,5 +1,30 @@
 from BeautifulSoup import BeautifulSoup
-import requests
+import requests, re, urllib
+
+import re, htmlentitydefs
+
+##
+# Removes HTML or XML character references and entities from a text string.
+#
+# @param text The HTML (or XML) source text.
+# @return The plain text, as a Unicode string, if necessary.
+
+def get_list_of_company_opposing_same_sex_marriage():
+    # such terrible markup ugh :(
+    r = requests.get('http://guydads.blogspot.ca/2008/12/anti-gay-companies.html')
+    soup = BeautifulSoup(r.text, convertEntities=BeautifulSoup.HTML_ENTITIES)
+    post = soup.findAll('div', attrs={'class': re.compile(r'post-body') })
+
+    # we only want to do removal on this div
+    inner_div = post[0].find('div')
+
+    # remove divs in post
+    for div in inner_div.findAll('div'):
+        div.extract()
+
+    return [strong.text for strong in post[0].findAll('strong') if strong.text != '']
+    
+
 
 def get_list_of_company_supporters_of_same_sex_marriage():
     r = requests.get('http://en.wikipedia.org/wiki/List_of_supporters_of_same-sex_marriage_in_the_United_States#Organizations')
@@ -38,6 +63,10 @@ def get_companies_against_DOMA():
 
 domas = get_companies_against_DOMA()
 companies = get_list_of_company_supporters_of_same_sex_marriage()
+#companies = get_list_of_company_supporters_of_same_sex_marriage()
+#companies = get_list_of_company_opposing_same_sex_marriage()
+#for a in companies:
+#    print a
 
 #create a copy of DOMAs
 cp = domas[:]
