@@ -409,14 +409,19 @@
             // Summary view controller
             var summaryView = new MCSummaryViewController();
             
-            MCApp.handleUpdateAfterCompanyFound = function(){
-                summaryView.setCompanyName(MCApp.getCurrentCompanyName());
+            MCApp.handleUpdateAfterCompanyFound = function(companyName){
+                summaryView.setCompanyName(companyName);
                 
-                if(MCApp.getCurrentCompanyName().toLowerCase() == "startup weekend"){
+                if (companyName == false) {
+                    summaryView.setCompanyName('unknown');
+                    summaryView.setPercentAgree(0);
+                    summaryView.setPercentUsersAgree(0);
+                    mcSetTestStances(false);
+                } else if(companyName.toLowerCase() == "startup weekend"){
                     summaryView.setPercentAgree(100);
                     summaryView.setPercentUsersAgree(100);
                     mcSetTestStances(true);
-                }else if(MCApp.getCurrentCompanyName() == "Sun-Rype Products" && MCApp.isDebug()){
+                }else if(companyName == "Sun-Rype Products" && MCApp.isDebug()){
                     summaryView.setPercentAgree(75);
                     mcSetTestStances(false);
                 }else{
