@@ -551,7 +551,7 @@ MCSummaryViewController = function(){
     }
     
     this.updateBarChart = function(){
-        // unimplemented
+        $('#mc-summary-chart-data').width(this.getPercentAgree()+"%");
     }
     
     this.getIndicatorType = function(){
