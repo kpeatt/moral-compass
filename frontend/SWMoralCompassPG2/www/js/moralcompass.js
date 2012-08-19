@@ -117,11 +117,11 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
  */
 MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     var code = $.trim(barcodeStr);
-	if (code.indexOf("004800") === 0) callback("Unilever");
-	else if (code.indexOf("055000") === 0) callback("Nestle");
-    //else if (code.indexOf("065633") === 0) callback("Nature Valley");
-	else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
-	else if (code.indexOf("038000") === 0) callback("Kellogg");
+    if (code.indexOf("004800") === 0) callback("Unilever");
+    else if (code.indexOf("055000") === 0) callback("Nestle");
+    else if (code.indexOf("065633") === 0) callback("Nature Valley");
+    else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
+    else if (code.indexOf("038000") === 0) callback("Kellogg");
     else callback(false);
 }
 
