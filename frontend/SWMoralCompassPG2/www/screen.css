@@ -125,6 +125,22 @@ body {
 body.search-open {
   padding-top: 112px;
 }
+/* line 61, scss/_defaults.scss */
+body .spinner {
+  position: absolute;
+  top: 50%;
+  margin-top: -75px;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  margin-left: -75px;
+  background: rgba(255, 255, 255, 0.9) url(i/ajax-loader.gif) center no-repeat;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
 
 /* line 1, scss/modules/_footer.scss */
 #mc-bottom-bar {
