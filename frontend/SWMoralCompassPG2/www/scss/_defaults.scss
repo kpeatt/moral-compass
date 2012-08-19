@@ -1,6 +1,6 @@
 /** Colours **/
 
-$body: #51626F;
+$body: #333;
 
 /** Variables **/
 
@@ -50,6 +50,7 @@ body {
     padding-bottom: 86px;
     overflow: scroll;
     background: #eee;
+    color: $body;
     
     &.search-open {
         padding-top: 112px;

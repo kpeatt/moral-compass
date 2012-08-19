@@ -572,7 +572,7 @@ MCSummaryViewController = function(){
         }else if(type == "neutral"){
             str.html("your choice");
         }else{
-            str.html("we're not sure");
+            str.html("whoops");
         }
     }
     

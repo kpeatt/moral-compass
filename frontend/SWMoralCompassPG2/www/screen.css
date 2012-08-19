@@ -114,13 +114,14 @@ body {
   padding-bottom: 86px;
   overflow: scroll;
   background: #eee;
+  color: #333333;
   -webkit-transition: padding-top 250ms ease-out;
   -moz-transition: padding-top 250ms ease-out;
   -ms-transition: padding-top 250ms ease-out;
   -o-transition: padding-top 250ms ease-out;
   transition: padding-top 250ms ease-out;
 }
-/* line 54, scss/_defaults.scss */
+/* line 55, scss/_defaults.scss */
 body.search-open {
   padding-top: 112px;
 }
@@ -194,13 +195,14 @@ body.search-open {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
   width: 100%;
   background: url(i/bg-bluenoise.png);
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
-/* line 12, scss/modules/_header.scss */
+/* line 13, scss/modules/_header.scss */
 #mc-topbar h1 {
   display: block;
   padding: 10px 0;
@@ -444,5 +446,6 @@ body.search-open {
 }
 /* line 49, scss/pages/_summary.scss */
 #mc-container-summary .statement {
+  margin-bottom: 16px;
   font-size: 22px;
 }
