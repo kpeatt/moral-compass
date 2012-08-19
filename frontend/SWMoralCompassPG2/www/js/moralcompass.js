@@ -411,6 +411,8 @@ MCBeliefs.prototype.getNumAgreeToArrayOfCompanyStances = function(stancesArray){
         }
     }
     
+    alert(JSON.stringify(this.getStances())+"\n"+JSON.stringify(stancesArray));
+    
     return sumMatch;
 }
 
@@ -539,8 +541,8 @@ MCSummaryViewController = function(){
         }else{
             $('#mc-support-description').html("We're still learning about " + isCompanyKnown?this.getCompanyName():"this company.");
         }
-        $('#mc-support-user-agree-text-percent').html(Math.floor(this.getPercentAgree()));
-        $('#mc-support-others-agree-text-percent').html(Math.floor(this.getPercentUsersAgree()));
+        $('#mc-support-user-agree-text-percent').html(Math.floor(this.getPercentAgree())+'%');
+        $('#mc-support-others-agree-text-percent').html(Math.floor(this.getPercentUsersAgree())+'%');
         
         
         this.updateBarChart();
