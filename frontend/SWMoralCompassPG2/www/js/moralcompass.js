@@ -448,15 +448,6 @@ MCTest.prototype.getTestStancesFromBarcode = function(barcode){
 }
 
 /**
- *  A quiz item
- * 
- */
-MCQuizItem = function(){
-    
-}
-
-
-/**
  *  View controller for summary view.
  */
 MCSummaryViewController = function(){
@@ -536,8 +527,9 @@ MCSummaryViewController = function(){
         var isCompanyKnown = this.getCompanyName() != null && this.getCompanyName() != 'unknown';
         
         if(this.getDescriptionWord()!="unknown"){
-            $('#mc-support-description').html("You and " + this.getCompanyName()
-                                             + " are " + this.getDescriptionWord() + ".");
+            $('#mc-support-description').html(this.getCompanyName().charAt(0).toUpperCase() 
+                                             + this.getCompanyName().slice(1) + " and you are "
+                                             + this.getDescriptionWord() + ".");
         }else{
             $('#mc-support-description').html("We're still learning about " + isCompanyKnown?this.getCompanyName():"this company.");
         }
@@ -593,6 +585,121 @@ MCSummaryViewController = function(){
     }
         
     
-    
+    /**
+     * Quiz view controller.
+     * 
+     * Example Html below:
+     * 
+     * <div class="question">
+            
+               <h2>Same-sex marriage:</h2> 
+               
+               <ul class="choice">
+                   <li>
+                       <a href="#" class="button support">Support</a>
+                   </li>
+                   <li>
+                       <a href="#" class="button dontcare">Don't care</a>
+                   </li>
+                   <li>
+                       <a href="#" class="button oppose">Oppose</a>
+                   </li>
+               </ul>
+	           
+	       </div>
+	       
+	       <div class="question">
+	       
+	           <h2>Testing on animals:</h2> 
+	           <ul class="choice">
+	               <li>
+	                   <a href="#" class="button support">Support</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button dontcare">Don't care</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button oppose">Oppose</a>
+	               </li>
+	           </ul>
+	           
+	       </div>
+	       
+	       <div class="question">
+	       
+	           <h2>Use of child labour:</h2> 
+	           <ul class="choice">
+	               <li>
+	                   <a href="#" class="button support">Support</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button dontcare">Don't care</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button oppose">Oppose</a>
+	               </li>
+	           </ul>
+	           
+	       </div>
+	       
+	       <div class="question">
+	       
+	           <h2>Government-set minimum wage:</h2> 
+	           <ul class="choice">
+	               <li>
+	                   <a href="#" class="button support">Support</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button dontcare">Don't care</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button oppose">Oppose</a>
+	               </li>
+	           </ul>
+	           
+	       </div>
+     */
+    MCQuizViewController = function(){
+        this.arrOfIssues =
+            ["same-sex marriage",
+             "testing on animals",
+             "use of child labour",
+             "government-set minimum wage"];
+        
+        /**
+         *  Produces a section that represents a quiz question.
+         *  
+         *  string -> string
+         */
+        this.getHtmlForIssue = function(theIssue){
+            var theIssueSentenceCase = theIssue.charAt(0).toUpperCase() 
+                                             + theIssue.slice(1).toLowerCase();
+            var questionSection =
+                '<div class="question mc-quiz-question">\n'+
+	           '<h2>'+theIssueSentenceCase+'</h2>\n'+
+	           '<ul class="choice">\n'+
+	               '<li><a href="#" class="button support">Support</a></li>\n'+
+	               '<li><a href="#" class="button dontcare">Don\'t care</a></li>\n'+
+	               '<li><a href="#" class="button oppose">Oppose</a></li>\n'+
+	           '</ul>\n</div>\n';
+            return questionSection;
+        }
+        
+        /**
+         *  Produces the html for an entire quiz.
+         *  
+         *  This is based on what issues are currently stored in the internal
+         *  array.
+         *  
+         *  void -> string
+         */
+        this.produceQuizHtml = function(){
+            var result = "";
+            for(var i=0; i<this.arrOfIssues; i++){
+                result = result + this.getHtmlForIssue(this.arrOfIssues[i]);
+            }
+            return result;
+        }
+    }
     
 }
