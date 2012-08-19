@@ -4,17 +4,15 @@
     top: 0;
     left: 0;
 
-    height: 50px;
     width: 100%;
     background: url(i/bg-bluenoise.png);
-    
-    border-bottom: 1px solid #004199;
-    
+        
     h1 {
     
         display: block;
-        padding-top: 10px;
+        padding: 10px 0;
         
+        border-bottom: 1px solid #004199;        
         
         font-weight: 500;
         font-size: 28px;
