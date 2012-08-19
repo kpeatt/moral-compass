@@ -40,8 +40,8 @@
 	       <h1>MoralCode</h1>
            <div id="mc-container-search" class="searchbar">
 	       
-	           <input type="search" placeholder="Enter a company name">
-	           <input type="submit" value="Search">
+	           <input id = "search_text" type="search" placeholder="Enter a company name">
+	           <input id = "search_submit" type="submit" value="Search">
 	       
 	       </div>
 	</header>
@@ -404,6 +404,11 @@
             $('#mc-container-summary .card').click(function(){
                $(this).toggleClass("open"); 
             });
+
+$('#search_submit').click(function(){
+    var query = $('#search_text').val();
+    MCApp.handleUpdateAfterCompanyFound(query);
+    });
             
             
             // Summary view controller
