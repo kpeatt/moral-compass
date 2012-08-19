@@ -416,6 +416,9 @@
                     summaryView.setPercentAgree(100);
                     summaryView.setPercentUsersAgree(100);
                     mcSetTestStances(true);
+                }else if(MCApp.getCurrentCompanyName() == "Sun-Rype Products" && MCApp.isDebug()){
+                    summaryView.setPercentAgree(75);
+                    mcSetTestStances(false);
                 }else{
                     var barcode = MCApp.getCurrentBarcode();
                     //alert(barcode);
