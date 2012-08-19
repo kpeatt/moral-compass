@@ -261,14 +261,10 @@ body.search-open {
   -o-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
   border: 1px solid #999;
-  -webkit-box-shadow: 0 1px 0 white inset;
-  -moz-box-shadow: 0 1px 0 white inset;
-  box-shadow: 0 1px 0 white inset;
   background: #ccc;
   color: #333;
-  text-shadow: -1px -1px 0 white;
 }
-/* line 48, scss/modules/_search.scss */
+/* line 46, scss/modules/_search.scss */
 .search-open #mc-container-search {
   height: 62px;
 }
@@ -480,7 +476,11 @@ body.search-open {
   font-weight: 900;
   color: #333;
 }
-/* line 83, scss/pages/_summary.scss */
+/* line 84, scss/pages/_summary.scss */
+#mc-container-summary .card.minor h2 {
+  font-size: 18px;
+}
+/* line 89, scss/pages/_summary.scss */
 #mc-container-summary .card:after {
   content: '';
   position: absolute;
@@ -491,8 +491,37 @@ body.search-open {
   height: 30px;
   background: #ccc;
 }
-/* line 97, scss/pages/_summary.scss */
+/* line 103, scss/pages/_summary.scss */
+#mc-container-summary .card .chart {
+  position: relative;
+  height: 10px;
+  width: 100%;
+  margin-top: 16px;
+  background: #C60033;
+}
+/* line 114, scss/pages/_summary.scss */
+#mc-container-summary .card .chart .data {
+  position: relative;
+  width: 25%;
+  height: 10px;
+  background: #69BE28;
+}
+/* line 121, scss/pages/_summary.scss */
+#mc-container-summary .card .chart .data:after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: 0;
+  display: block;
+  width: 1px;
+  height: 12px;
+  background: #333;
+}
+/* line 136, scss/pages/_summary.scss */
 #mc-container-summary .card .causes {
-  height: 0;
-  overflow: hidden;
+  display: none;
+}
+/* line 140, scss/pages/_summary.scss */
+#mc-container-summary .card.open .causes {
+  display: block;
 }

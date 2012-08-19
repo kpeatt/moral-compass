@@ -80,6 +80,12 @@
             }
         }
         
+        &.minor {
+            h2 {
+                font-size: 18px;
+            }
+        }
+        
         &:after {
             content: '';
             
@@ -94,19 +100,45 @@
             background: #ccc;
         }
         
-        .causes {
-            height: 0;
-            overflow: hidden;
-        }
-        
         .chart {
             
-            &.barcode {
+            position: relative;
+            
+            height: 10px;
+            width: 100%;
+            margin-top: 16px;
+            
+            background: #C60033;
+            
+            
+            .data {
+            
+                position: relative;
+                width: 25%;
+                height: 10px;
+                background: #69BE28;
                 
-                
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: -1px;
+                    right: 0;
+                    display: block;
+                    width: 1px;
+                    height: 12px;
+                    background: #333;
+                }
                 
             }
             
+        }
+        
+        .causes {
+            display: none;
+        }
+        
+        &.open .causes {
+            display: block; 
         }
         
     }
