@@ -110,8 +110,8 @@ body {
   position: relative;
   font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
   width: 320px;
-  padding-top: 35px;
-  padding-bottom: 86px;
+  padding-top: 50px;
+  padding-bottom: 112px;
   overflow: scroll;
   background: #eee;
   -webkit-transition: padding-top 250ms ease-out;
@@ -123,14 +123,6 @@ body {
 /* line 54, scss/_defaults.scss */
 body.search-open {
   padding-top: 97px;
-}
-/* line 58, scss/_defaults.scss */
-body.mc-container-home {
-  padding-top: 50px;
-}
-/* line 60, scss/_defaults.scss */
-body.mc-container-home.search-open {
-  padding-top: 112px;
 }
 
 /* line 1, scss/modules/_footer.scss */
@@ -211,14 +203,10 @@ body.mc-container-home.search-open {
   padding: 10px 0;
   border-bottom: 1px solid #004199;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 28px;
   text-align: center;
   color: white;
   text-shadow: -1px -1px 0 #19598f;
-}
-/* line 27, scss/modules/_header.scss */
-.mc-container-home #mc-topbar h1 {
-  font-size: 28px !important;
 }
 
 /* line 1, scss/modules/_search.scss */
