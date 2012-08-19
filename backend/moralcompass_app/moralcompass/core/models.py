@@ -26,3 +26,4 @@ class Stance(models.Model):
     user = models.ForeignKey(User, blank=True, null=True)
     cause = models.ForeignKey(Cause)
     answer = models.IntegerField(choices=Answers.choices)
+    reference = models.CharField(max_length=512)
