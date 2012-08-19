@@ -110,11 +110,14 @@ body {
   position: relative;
   font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
   width: 320px;
-  height: 480px;
+  height: 434px;
   padding-top: 50px;
-  padding-bottom: 100px;
   overflow: scroll;
   background: #eee;
+}
+/* line 54, scss/_defaults.scss */
+body.search-open {
+  padding-top: 112px;
 }
 
 /* line 1, scss/modules/_footer.scss */
@@ -122,20 +125,21 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  height: 86px;
   padding: 0 10px;
-  background: #ccc;
+  background: url(i/bg-bottom-nav.png) center top no-repeat;
+  background-size: auto 86px;
 }
-/* line 14, scss/modules/_footer.scss */
+/* line 15, scss/modules/_footer.scss */
 #mc-bottom-bar nav ul li {
   display: block;
   float: left;
 }
-/* line 18, scss/modules/_footer.scss */
+/* line 19, scss/modules/_footer.scss */
 #mc-bottom-bar nav ul li:last-child {
   margin-right: 0;
 }
-/* line 23, scss/modules/_footer.scss */
+/* line 24, scss/modules/_footer.scss */
 #mc-bottom-bar nav .button {
   text-indent: 100%;
   white-space: nowrap;
@@ -143,27 +147,41 @@ body {
   float: left;
   width: 45px;
   height: 45px;
-  margin-top: 8px;
+  margin-top: 32px;
   margin-right: 8px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  background: #999;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #596776;
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  background: #5686ad url(i/icon-nav-home.png) center no-repeat;
   background-size: auto 23px;
 }
-/* line 40, scss/modules/_footer.scss */
+/* line 44, scss/modules/_footer.scss */
 #mc-bottom-bar nav .scan {
   position: relative;
-  top: -27px;
-  width: 66px;
-  height: 80px;
-  margin: 0 18px 0 11px;
+  width: 64px;
+  height: 69px;
+  background: url(i/icon-nav-scan.png) center no-repeat, url(i/bg-bluenoise.png);
+  background-size: auto 26px, auto;
+  margin: 8px 18px 0 11px;
 }
-/* line 53, scss/modules/_footer.scss */
+/* line 58, scss/modules/_footer.scss */
+#mc-bottom-bar nav .search {
+  background-image: url(i/icon-nav-search.png);
+}
+/* line 62, scss/modules/_footer.scss */
+#mc-bottom-bar nav .quiz {
+  background-image: url(i/icon-nav-compass.png);
+}
+/* line 66, scss/modules/_footer.scss */
 #mc-bottom-bar nav .account {
   margin-right: 0;
+  background-image: url(i/icon-nav-user.png);
 }
 
 /* line 1, scss/modules/_header.scss */
@@ -171,15 +189,14 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  height: 50px;
   width: 100%;
   background: url(i/bg-bluenoise.png);
-  border-bottom: 1px solid #004199;
 }
-/* line 13, scss/modules/_header.scss */
+/* line 10, scss/modules/_header.scss */
 #mc-topbar h1 {
   display: block;
-  padding-top: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #004199;
   font-weight: 500;
   font-size: 28px;
   text-align: center;
@@ -189,14 +206,24 @@ body {
 
 /* line 1, scss/modules/_search.scss */
 #mc-container-search {
+  display: none;
   position: relative;
-  margin: -21px -10px 0;
   padding: 10px;
+  background: #5A6B7B;
+  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15) inset;
+  -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15) inset;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15) inset;
 }
-/* line 7, scss/modules/_search.scss */
+/* line 10, scss/modules/_search.scss */
+#mc-container-search input {
+  font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+/* line 15, scss/modules/_search.scss */
 #mc-container-search input[type=search] {
-  width: 100%;
   -webkit-appearance: none;
+  width: 100%;
+  height: 42px;
   border: 1px solid #ccc;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -204,11 +231,28 @@ body {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 17, scss/modules/_search.scss */
+/* line 25, scss/modules/_search.scss */
 #mc-container-search input[type=submit] {
+  -webkit-appearance: none;
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 8px;
+  height: 42px;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -ms-border-radius: 0 4px 4px 0;
+  -o-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff0000), color-stop(100%, #0000ff));
+  background-image: -webkit-linear-gradient(#ff0000, #0000ff);
+  background-image: -moz-linear-gradient(#ff0000, #0000ff);
+  background-image: -o-linear-gradient(#ff0000, #0000ff);
+  background-image: -ms-linear-gradient(#ff0000, #0000ff);
+  background-image: linear-gradient(#ff0000, #0000ff);
+}
+/* line 44, scss/modules/_search.scss */
+.search-open #mc-container-search {
+  display: block;
 }
 
 /* line 3, scss/pages/_homepage.scss */
@@ -237,7 +281,7 @@ body {
   padding: 73px 0 21px;
   margin-bottom: 21px;
   border-top: 5px solid grey;
-  background: white url("img/icon-compass-large@2x.png") center 21px no-repeat;
+  background: white url(i/icon-compass-large@2x.png) center 21px no-repeat;
   background-size: auto 41px;
   font-size: 20px;
   font-weight: 700;
@@ -248,7 +292,7 @@ body {
 #mc-container-home .content nav .scan {
   width: 100%;
   border-color: #0066CC;
-  background: white url("img/icon-barcode@2x.png") center 21px no-repeat;
+  background: white url(i/icon-barcode@2x.png) center 21px no-repeat;
   background-size: auto 41px;
   color: #00528D;
   font-size: 26px;
@@ -261,6 +305,6 @@ body {
 /* line 54, scss/pages/_homepage.scss */
 #mc-container-home .content nav .search {
   border-color: #5A6B7B;
-  background-image: url("img/icon-search-large@2x.png");
+  background-image: url(i/icon-search-large@2x.png);
   color: #5A6B7B;
 }

@@ -1,0 +1,25 @@
+#mc-topbar {
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    background: url(i/bg-bluenoise.png);
+        
+    h1 {
+    
+        display: block;
+        padding: 10px 0;
+        
+        border-bottom: 1px solid #004199;        
+        
+        font-weight: 500;
+        font-size: 28px;
+        text-align: center;
+        color: white;
+        @include text-shadow(-1px -1px 0 #19598F);
+        
+    }    
+    
+}

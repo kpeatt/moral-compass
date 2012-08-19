@@ -1,0 +1,47 @@
+#mc-container-search {
+    display: none;
+    position: relative;
+
+    padding: 10px;
+    
+    background: #5A6B7B;
+    @include box-shadow(0 5px 5px rgba(0,0,0,0.15) inset);
+    
+    input {
+        font-family: $sans-stack;
+        font-size: 16px;
+    }
+    
+    input[type=search] {
+        -webkit-appearance: none;
+        
+        width: 100%;
+        height: 42px;
+        
+        border: 1px solid #ccc;
+        @include border-radius();
+    }
+    
+    input[type=submit] {
+        -webkit-appearance: none;
+        
+        position: absolute;
+        top: 10px;
+        right: 8px;
+        
+        height: 42px;
+        
+        @include border-radius(0 4px 4px 0);
+        
+        @include background-image(  linear-gradient(
+                                
+                                    red,
+                                    blue
+                                
+                                ));
+    }
+    
+    .search-open & {
+        display: block;
+    }
+}
