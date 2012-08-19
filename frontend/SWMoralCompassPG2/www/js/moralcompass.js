@@ -801,7 +801,7 @@ MCSummaryViewController = function(){
             return result;
         }
          
-        
+        $('input').css("-webkit-user-select", "auto");
     }
     
 }

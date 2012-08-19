@@ -38,7 +38,7 @@
         
         <header id="mc-topbar" onclick='//debugToggleAndShowSummary();'>
 	       <h1>MoralCode</h1>
-           <div id="mc-container-search" class="searchbar">
+           <div id="mc-container-search" class="searchbar" onClick="$('#search_text').focus();">
 	       
 	           <input id = "search_text" type="search" placeholder="Enter a company name">
 	           <input id = "search_submit" type="submit" value="Search">
@@ -474,6 +474,7 @@ $('#search_submit').click(function(){
            var quizView = new MCQuizViewController();
            
            $('#mc-quiz-list').html(quizView.produceQuizHtml());
+           $('input')
             
            mcHideSpinner();
            switchToView("mc-container-home");
