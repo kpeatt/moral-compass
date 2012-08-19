@@ -47,12 +47,11 @@ body {
     font-family: $sans-stack;
     width: $portraitwidth * 1px;
     padding-top: 50px;
-    padding-bottom: 112px;
     overflow: scroll;
     background: #eee;
     
     &.search-open {
-        padding-top: 97px;
+        padding-top: 112px;
     }
     
     @include transition(padding-top 250ms ease-out);
