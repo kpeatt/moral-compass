@@ -158,6 +158,15 @@
         
         <div id="mc-container-summary" class="container">
             <div id="mc-barchart-back" class="mc-barchart"><div id="mc-barchart-front" class="mc-barchart"></div></div>
+            
+            <div id="mc-support-indicator"></div>
+            <div id="mc-support-description"></div>
+            <div id="mc-support-user-agree-text">You agree on <span id="mc-support-user-agree-text-percent"></span> 
+                                                 of the same causes.</div>
+            <div id="mc-support-other-indicator"></div>
+            <div id="mc-support-others-agree-text"><span id="mc-support-others-agree-text-percent"></span> of users
+                                                 agree with this company.</div>
+            
         </div>
         <div id="mc-container-login" class="container">login!</div>
         <div id="mc-container-detail" class="container">detail!</div>
@@ -317,6 +326,22 @@
             $("#mc-button-home-search").click(function(){
                 toggleSearch();
             })
+            
+            
+            // summary view controller
+            var summaryView = new MCSummaryViewController();
+            
+            MCApp.handleUpdateAfterCompany = function(){
+                summaryView.setCompanyName(MCApp.getCurrentCompanyName());
+                var barcode = MCApp.getCurrentBarcode();
+                var testGen = new MCTest();
+                var testVector = testGen.getTestStancesFromBarcode(barcode);
+                var numAgree = myStances.getNumAgreeToArrayOfCompanyStances(testVector);
+                summaryView.setPercentAgree(numAgree/9);
+                summaryView.setPercentUsersAgree(50);
+                switchToView("mc-container-summary");
+                alert("handle scan");
+            }
             
             
            switchToView("mc-container-home");

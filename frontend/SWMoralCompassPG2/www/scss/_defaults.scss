@@ -62,4 +62,6 @@ body {
         }
     }
     
+    @include transition(padding-top 250ms ease-out);
+    
 }
