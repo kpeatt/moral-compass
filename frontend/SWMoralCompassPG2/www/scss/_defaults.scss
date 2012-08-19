@@ -60,6 +60,7 @@ body {
     
     .spinner {
         position: absolute;
+        z-index: 2;
         top: 50%;
         margin-top: -75px;
         left: 50%;
