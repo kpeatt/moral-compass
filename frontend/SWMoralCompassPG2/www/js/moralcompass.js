@@ -715,9 +715,9 @@ MCSummaryViewController = function(){
                 '<div class="question mc-quiz-question" id="'+theDivId+'">\n'+
 	           '<h2>'+theIssueSentenceCase+'</h2>\n'+
 	           '<ul class="choice">\n'+
-	               '<li><a href="#" class="button support" onClick="myStances.setStance('+idx+', MCStance.yes()); myStances.save();$(\'#'+theDivId+'\').remove();">Support</a></li>\n'+
-	               '<li><a href="#" class="button dontcare" onClick="myStances.setStance('+idx+', MCStance.donotcare()); myStances.save();$(\'#'+theDivId+'\').remove();">Don\'t care</a></li>\n'+
-	               '<li><a href="#" class="button oppose" onClick="myStances.setStance('+idx+', MCStance.no()); myStances.save();$(\'#'+theDivId+'\').remove();">Oppose</a></li>\n'+
+	               '<li><a href="#" class="button support" onClick="myStances.setStance('+idx+', MCStance.yes()); myStances.save();$(\'#'+theDivId+'\').fadeOut(300,function() { $(\'#'+theDivId+'\').remove(); });">Support</a></li>\n'+
+	               '<li><a href="#" class="button dontcare" onClick="myStances.setStance('+idx+', MCStance.donotcare()); myStances.save();$(\'#'+theDivId+'\').fadeOut(300,function() { $(\'#'+theDivId+'\').remove();});">Don\'t care</a></li>\n'+
+	               '<li><a href="#" class="button oppose" onClick="myStances.setStance('+idx+', MCStance.no()); myStances.save();$(\'#'+theDivId+'\').fadeOut(300,function() { $(\'#'+theDivId+'\').remove();});">Oppose</a></li>\n'+
 	           '</ul>\n</div>\n';
             return questionSection;
         }
