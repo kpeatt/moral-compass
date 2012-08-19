@@ -1,0 +1,55 @@
+/** Colours **/
+
+$body: #51626F;
+
+/** Variables **/
+
+$portraitwidth: 320;
+$landscapewidth: 480;
+
+$default-border-radius: 4px;
+
+$default-text-shadow-color: black;
+$default-text-shadow-blur: 0;
+$default-text-shadow-v-offset: -1px;
+$default-text-shadow-h-offset: -1px;
+
+$default-margin: 10px;
+$tall-margin: $default-margin*1.5;
+$extra-margin: $default-margin*2;
+$short-margin: $default-margin*0.5;
+
+$sans-stack: "Proxima Nova", Helvetica, Arial, sans-serif;
+
+html {
+	visibility: visible !important;
+	-webkit-text-size-adjust: none; /* Prevent all the font scaling */
+}
+
+* { 
+    @include box-sizing(border-box);
+}
+
+/** Mixins **/
+
+@mixin hidetext {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+/** Elements **/
+
+body {
+    
+    position: relative;
+    font-family: $sans-stack;
+    width: $portraitwidth * 1px;
+    height: 480px;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    overflow: scroll;
+    background: #eee;
+    
+}

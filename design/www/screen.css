@@ -1,0 +1,266 @@
+/* line 17, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* line 20, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body {
+  line-height: 1;
+}
+
+/* line 22, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 24, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 26, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 28, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 101, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 30, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 114, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url("fonts/proximanova-semibold-webfont.eot");
+  src: url("fonts/proximanova-semibold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/proximanova-semibold-webfont.woff") format("woff"), url("fonts/proximanova-semibold-webfont.ttf") format("truetype"), url("fonts/proximanova-semibold-webfont.svg#proxima_nova_ltbold") format("svg");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url("fonts/proximanova-regular-webfont.eot");
+  src: url("fonts/proximanova-regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/proximanova-regular-webfont.woff") format("woff"), url("fonts/proximanova-regular-webfont.ttf") format("truetype"), url("fonts/proximanova-regular-webfont.svg#proxima_nova_rgregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url("fonts/proximanova-bold-webfont.eot");
+  src: url("fonts/proximanova-bold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/proximanova-bold-webfont.woff") format("woff"), url("fonts/proximanova-bold-webfont.ttf") format("truetype"), url("fonts/proximanova-bold-webfont.svg#proxima_nova_rgbold") format("svg");
+  font-weight: 900;
+  font-style: normal;
+}
+
+/** Colours **/
+/** Variables **/
+/* line 24, scss/_defaults.scss */
+html {
+  visibility: visible !important;
+  -webkit-text-size-adjust: none;
+  /* Prevent all the font scaling */
+}
+
+/* line 29, scss/_defaults.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/** Mixins **/
+/** Elements **/
+/* line 44, scss/_defaults.scss */
+body {
+  position: relative;
+  font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
+  width: 320px;
+  height: 480px;
+  padding-top: 50px;
+  padding-bottom: 100px;
+  overflow: scroll;
+  background: #eee;
+}
+
+/* line 1, scss/modules/_footer.scss */
+#mc-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  padding: 0 10px;
+  background: #ccc;
+}
+/* line 14, scss/modules/_footer.scss */
+#mc-bottom-bar nav ul li {
+  display: block;
+  float: left;
+}
+/* line 18, scss/modules/_footer.scss */
+#mc-bottom-bar nav ul li:last-child {
+  margin-right: 0;
+}
+/* line 23, scss/modules/_footer.scss */
+#mc-bottom-bar nav .button {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  float: left;
+  width: 45px;
+  height: 45px;
+  margin-top: 8px;
+  margin-right: 8px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background: #999;
+  background-size: auto 23px;
+}
+/* line 40, scss/modules/_footer.scss */
+#mc-bottom-bar nav .scan {
+  position: relative;
+  top: -27px;
+  width: 66px;
+  height: 80px;
+  margin: 0 18px 0 11px;
+}
+/* line 53, scss/modules/_footer.scss */
+#mc-bottom-bar nav .account {
+  margin-right: 0;
+}
+
+/* line 1, scss/modules/_header.scss */
+#mc-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  background: url(i/bg-bluenoise.png);
+  border-bottom: 1px solid #004199;
+}
+/* line 13, scss/modules/_header.scss */
+#mc-topbar h1 {
+  display: block;
+  padding-top: 10px;
+  font-weight: 500;
+  font-size: 28px;
+  text-align: center;
+  color: white;
+  text-shadow: -1px -1px 0 #19598f;
+}
+
+/* line 1, scss/modules/_search.scss */
+#mc-container-search {
+  position: relative;
+  margin: -21px -10px 0;
+  padding: 10px;
+}
+/* line 7, scss/modules/_search.scss */
+#mc-container-search input[type=search] {
+  width: 100%;
+  -webkit-appearance: none;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 17, scss/modules/_search.scss */
+#mc-container-search input[type=submit] {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* line 3, scss/pages/_homepage.scss */
+#mc-container-home .content {
+  margin: 21px 10px 0;
+}
+/* line 7, scss/pages/_homepage.scss */
+#mc-container-home .content nav {
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+#mc-container-home .content nav:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 12, scss/pages/_homepage.scss */
+#mc-container-home .content nav li:last-child .button {
+  margin-left: 10px;
+}
+/* line 17, scss/pages/_homepage.scss */
+#mc-container-home .content nav .button {
+  float: left;
+  display: block;
+  width: 145px;
+  padding: 73px 0 21px;
+  margin-bottom: 21px;
+  border-top: 5px solid grey;
+  background: white url(i/icon-compass-large@2x.png) center 21px no-repeat;
+  background-size: auto 41px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+/* line 37, scss/pages/_homepage.scss */
+#mc-container-home .content nav .scan {
+  width: 100%;
+  border-color: #0066CC;
+  background: white url(i/icon-barcode@2x.png) center 21px no-repeat;
+  background-size: auto 41px;
+  color: #00528D;
+  font-size: 26px;
+}
+/* line 49, scss/pages/_homepage.scss */
+#mc-container-home .content nav .quiz {
+  border-color: #69BE28;
+  color: #4BAE00;
+}
+/* line 54, scss/pages/_homepage.scss */
+#mc-container-home .content nav .search {
+  border-color: #5A6B7B;
+  background-image: url(i/icon-search-large@2x.png);
+  color: #5A6B7B;
+}
