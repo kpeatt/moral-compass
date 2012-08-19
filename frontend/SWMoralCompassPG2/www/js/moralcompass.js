@@ -566,7 +566,8 @@ MCSummaryViewController = function(){
         // TODO: move this somewhere that makes more sense
         var types = ["support", "oppose", "neutral", "dontknow"],
             div = $('#mc-support-indicator'),
-            container = div.parent();
+            container = div.parent(),
+            str = div.find('span');
         
         // remove all, then add relevent type
         for(var i=0; i<types.length; i++){
@@ -575,13 +576,13 @@ MCSummaryViewController = function(){
         container.addClass(type);
         
         if(type == "support"){
-            div.html("support");
+            str.html("support");
         }else if(type == "oppose"){
-            div.html("oppose");
+            str.html("oppose");
         }else if(type == "neutral"){
-            div.html("your choice");
+            str.html("your choice");
         }else{
-            div.html("we're not sure");
+            str.html("we're not sure");
         }
     }
     

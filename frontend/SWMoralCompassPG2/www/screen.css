@@ -400,22 +400,49 @@ body.search-open {
   background-size: auto 16px;
 }
 
-/* line 3, scss/pages/_summary.scss */
+/* line 1, scss/pages/_summary.scss */
+#mc-container-summary {
+  margin: 0 10px;
+}
+/* line 5, scss/pages/_summary.scss */
 #mc-container-summary .cause-indicator {
+  position: relative;
   height: 118px;
-  margin-top: -1px;
+  margin: -1px -10px 21px;
   background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-bluetexture@2x.png) repeat;
   background-size: auto 118px, 32px auto;
 }
 /* line 13, scss/pages/_summary.scss */
+#mc-container-summary .cause-indicator span {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  display: block;
+  width: 200px;
+  margin-left: -100px;
+  font-size: 32px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
+}
+/* line 31, scss/pages/_summary.scss */
 #mc-container-summary.support .cause-indicator {
   background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greentexture@2x.png) repeat;
 }
-/* line 17, scss/pages/_summary.scss */
+/* line 35, scss/pages/_summary.scss */
 #mc-container-summary.oppose .cause-indicator {
   background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-redtexture@2x.png) repeat;
 }
-/* line 24, scss/pages/_summary.scss */
+/* line 40, scss/pages/_summary.scss */
+#mc-container-summary.neutral .cause-indicator span {
+  top: 15px;
+}
+/* line 45, scss/pages/_summary.scss */
 #mc-container-summary.dontknow .cause-indicator {
   background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greytexture@2x.png) repeat;
+}
+/* line 49, scss/pages/_summary.scss */
+#mc-container-summary .statement {
+  font-size: 22px;
 }
