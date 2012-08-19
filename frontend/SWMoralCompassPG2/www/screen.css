@@ -101,11 +101,12 @@ html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-touch-callout: none !important;
 }
 
 /** Mixins **/
 /** Elements **/
-/* line 44, scss/_defaults.scss */
+/* line 45, scss/_defaults.scss */
 body {
   position: relative;
   font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
@@ -121,13 +122,15 @@ body {
   -o-transition: padding-top 250ms ease-out;
   transition: padding-top 250ms ease-out;
 }
-/* line 55, scss/_defaults.scss */
+/* line 56, scss/_defaults.scss */
 body.search-open {
   padding-top: 112px;
 }
-/* line 61, scss/_defaults.scss */
+/* line 62, scss/_defaults.scss */
 body .spinner {
+  display: none;
   position: absolute;
+  z-index: 2;
   top: 50%;
   margin-top: -75px;
   left: 50%;
@@ -146,22 +149,23 @@ body .spinner {
 #mc-bottom-bar {
   position: fixed;
   bottom: 0;
+  z-index: 3;
   width: 100%;
   height: 86px;
   padding: 0 10px;
   background: url(i/bg-bottom-nav.png) center top no-repeat;
   background-size: auto 86px;
 }
-/* line 15, scss/modules/_footer.scss */
+/* line 16, scss/modules/_footer.scss */
 #mc-bottom-bar nav ul li {
   display: block;
   float: left;
 }
-/* line 19, scss/modules/_footer.scss */
+/* line 20, scss/modules/_footer.scss */
 #mc-bottom-bar nav ul li:last-child {
   margin-right: 0;
 }
-/* line 24, scss/modules/_footer.scss */
+/* line 25, scss/modules/_footer.scss */
 #mc-bottom-bar nav .button {
   text-indent: 100%;
   white-space: nowrap;
@@ -183,7 +187,7 @@ body .spinner {
   background: #5686ad url(i/icon-nav-home.png) center no-repeat;
   background-size: auto 23px;
 }
-/* line 44, scss/modules/_footer.scss */
+/* line 45, scss/modules/_footer.scss */
 #mc-bottom-bar nav .scan {
   position: relative;
   width: 64px;
@@ -192,15 +196,15 @@ body .spinner {
   background-size: auto 26px, auto;
   margin: 8px 18px 0 11px;
 }
-/* line 58, scss/modules/_footer.scss */
+/* line 59, scss/modules/_footer.scss */
 #mc-bottom-bar nav .search {
   background-image: url(i/icon-nav-search.png);
 }
-/* line 62, scss/modules/_footer.scss */
+/* line 63, scss/modules/_footer.scss */
 #mc-bottom-bar nav .quiz {
   background-image: url(i/icon-nav-compass.png);
 }
-/* line 66, scss/modules/_footer.scss */
+/* line 67, scss/modules/_footer.scss */
 #mc-bottom-bar nav .account {
   margin-right: 0;
   background-image: url(i/icon-nav-user.png);
@@ -211,7 +215,7 @@ body .spinner {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
   width: 100%;
   background: url(i/bg-bluenoise.png);
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
@@ -505,9 +509,10 @@ body .spinner {
   display: block;
   width: 30px;
   height: 30px;
-  background: #ccc;
+  background: #cccccc url(i/icon-carat-down@2x.png) center no-repeat;
+  background-size: auto 10px;
 }
-/* line 103, scss/pages/_summary.scss */
+/* line 104, scss/pages/_summary.scss */
 #mc-container-summary .card .chart {
   position: relative;
   height: 10px;
@@ -515,14 +520,14 @@ body .spinner {
   margin-top: 16px;
   background: #C60033;
 }
-/* line 114, scss/pages/_summary.scss */
+/* line 115, scss/pages/_summary.scss */
 #mc-container-summary .card .chart .data {
   position: relative;
   width: 25%;
   height: 10px;
   background: #69BE28;
 }
-/* line 121, scss/pages/_summary.scss */
+/* line 122, scss/pages/_summary.scss */
 #mc-container-summary .card .chart .data:after {
   content: '';
   position: absolute;
@@ -533,11 +538,26 @@ body .spinner {
   height: 12px;
   background: #333;
 }
-/* line 136, scss/pages/_summary.scss */
+/* line 135, scss/pages/_summary.scss */
+#mc-container-summary .card .chart.agree {
+  float: left;
+  width: 45px;
+  height: 45px;
+  background: url(i/bg-chart-usersagree.png) center no-repeat;
+  background-size: 45px;
+  margin-top: 0;
+  margin-right: 16px;
+  margin-bottom: 10px;
+}
+/* line 148, scss/pages/_summary.scss */
 #mc-container-summary .card .causes {
   display: none;
 }
-/* line 140, scss/pages/_summary.scss */
+/* line 156, scss/pages/_summary.scss */
+#mc-container-summary .card.open:after {
+  background-image: url(i/icon-carat-up@2x.png);
+}
+/* line 160, scss/pages/_summary.scss */
 #mc-container-summary .card.open .causes {
   display: block;
 }
