@@ -1,0 +1,59 @@
+#mc-bottom-bar {
+
+    position: fixed;
+    bottom: 0;
+    
+    width: 100%;
+    height: 60px;
+    padding: 0 10px;
+    
+    background: #ccc;
+            
+    nav {
+    
+        ul li {
+            display: block;
+            float: left;
+            
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        
+        .button {
+            
+            @include hidetext;
+            
+            float: left;
+            width: 45px;
+            height: 45px;
+            margin-top: 8px;
+            margin-right: 8px;
+                        
+            @include border-radius();
+                        
+            background: #999;
+            background-size: auto 23px;
+            
+        }
+        
+        .scan {
+        
+            position: relative;
+            top: -27px;
+            
+            width: 66px;
+            height: 80px;
+            
+            margin: 0 18px 0 11px;
+
+            
+        }
+        
+        .account {
+            margin-right: 0;
+        }
+        
+    }
+    
+}

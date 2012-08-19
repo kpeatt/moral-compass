@@ -1,0 +1,65 @@
+#mc-container-home {
+    
+    .content {
+    
+        margin: 21px 10px 0;
+        
+        nav {
+        
+            @include pie-clearfix;
+            
+            li:last-child {
+                .button {
+                    margin-left: 10px;
+                }
+            }
+            
+            .button {
+                
+                float: left;
+                display: block;
+                width: 145px;
+                
+                padding: 73px 0 21px;
+                margin-bottom: 21px;
+                border-top: 5px solid grey;
+                
+                background: white url(i/icon-compass-large@2x.png) center 21px no-repeat;
+                background-size: auto 41px;
+                
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                text-decoration: none;
+                
+            }
+            
+            .scan {
+                width: 100%;
+                
+                border-color: #0066CC;
+                
+                background: white url(i/icon-barcode@2x.png) center 21px no-repeat;
+                background-size: auto 41px;
+                
+                color: #00528D;
+                font-size: 26px;
+            }
+            
+            .quiz {
+                border-color: #69BE28;
+                color: #4BAE00;
+            }
+            
+            .search {
+                border-color: #5A6B7B;
+                
+                background-image: url(i/icon-search-large@2x.png);
+                color: #5A6B7B;
+            }
+            
+        }
+        
+    }
+    
+}
