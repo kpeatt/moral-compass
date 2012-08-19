@@ -187,9 +187,8 @@
                 <div id="mc-support-other-indicator"></div>
                 <h2 id="mc-support-others-agree-text"><span id="mc-support-others-agree-text-percent">68%</span> of users
                                                      agree with this company.</div>
-            </div>
-            
         </div>
+            
         <!-- end summary -->
         
         <div id="mc-container-login" class="container">login!</div>
@@ -356,7 +355,7 @@
             });
             
             
-            // summary view controller
+            // Summary view controller
             var summaryView = new MCSummaryViewController();
             
             MCApp.handleUpdateAfterCompanyFound = function(){
@@ -377,6 +376,9 @@
                 summaryView.updateView();
                 switchToView("mc-container-summary");
             }
+            
+            
+            // Quiz view controller
             
             
            switchToView("mc-container-home");
