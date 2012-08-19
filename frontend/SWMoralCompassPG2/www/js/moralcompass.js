@@ -305,7 +305,11 @@ MCBeliefs = function(){
 MCBeliefs.prototype.init = function(){
     for(var i=0; i<MCBeliefDictionary.getNumBeliefs(); i++){
         // sets everything to do not care
-        this.arrayOfBeliefs[i] = MCStance.donotcare();
+        if(!MCApp.isDebug()){
+            this.arrayOfBeliefs[i] = MCStance.donotcare();
+        }else{
+            this.arrayOfBeliefs[i] = Math.random()<.5?MCStance.no():MCStance.yes();
+        }
     }
 }
 
@@ -349,6 +353,10 @@ MCBeliefs.prototype.isFirstTimeSave = function(){
     return window.localStorage.getItem(this.saveKey) == null;
 }
 
+MCBeliefs.prototype.isLoadedFromLastSave = function(){
+    return this.isLoaded;
+}
+
 /**
  *  Save belief stances to local storage.
  *  
@@ -357,7 +365,7 @@ MCBeliefs.prototype.isFirstTimeSave = function(){
  *  void -> boolean
  */
 MCBeliefs.prototype.save = function(){
-    if(!this.isLoaded) return false;
+    if(!this.isLoadedFromLastSave()) return false;
     window.localStorage.setItem(this.saveKey, JSON.stringify(this.getStances()));
     return true;
 }
@@ -389,10 +397,14 @@ MCBeliefs.prototype.getStanceAtIdx = function(idx){
  *  void -> boolean
  */
 MCBeliefs.prototype.load = function(){
-    this.isLoaded = true;
-    if(this.isFirstTimeSave()) this.save();
+    this.setToLoaded();
+    if(this.isFirstTimeSave()){this.save();}
     this.arrayOfBeliefs = JSON.parse(window.localStorage.getItem(this.saveKey));
     return true;
+}
+
+MCBeliefs.prototype.setToLoaded = function(){
+    this.isLoaded = true;
 }
 
 /**
@@ -416,7 +428,7 @@ MCBeliefs.prototype.getNumAgreeToArrayOfCompanyStances = function(stancesArray){
         }
     }
     
-    alert(JSON.stringify(this.getStances())+"\n"+JSON.stringify(stancesArray));
+    //alert(JSON.stringify(this.getStances())+"\n"+JSON.stringify(stancesArray));
     
     return sumMatch;
 }

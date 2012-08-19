@@ -226,6 +226,7 @@
             
             // variable to hold the current stances on beliefs
             var myStances = new MCBeliefs();
+            myStances.load();
             var isSearchOpen = false;
             
             /**
@@ -256,7 +257,7 @@
                 for(var i=0; i<viewIds.length; i++){
                     if(viewIds[i]==viewIdToTest) return true;
                 }
-                alert(viewIdToTest);
+                //alert(viewIdToTest);
                 return false;
             }
                            
@@ -385,7 +386,7 @@
                 var testGen = new MCTest();
                 var testVector = testGen.getTestStancesFromBarcode(barcode);
                 var numAgree = myStances.getNumAgreeToArrayOfCompanyStances(testVector);
-                summaryView.setPercentAgree(numAgree/9);
+                summaryView.setPercentAgree(numAgree/9*100);
                 summaryView.setPercentUsersAgree(50);
                 summaryView.updateView();
                 mcHideSpinner();
