@@ -46,20 +46,13 @@ body {
     position: relative;
     font-family: $sans-stack;
     width: $portraitwidth * 1px;
-    padding-top: 35px;
-    padding-bottom: 86px;
+    padding-top: 50px;
+    padding-bottom: 112px;
     overflow: scroll;
     background: #eee;
     
     &.search-open {
         padding-top: 97px;
-    }
-    
-    &.mc-container-home {
-        padding-top: 50px;
-        &.search-open {
-            padding-top: 112px;
-        }
     }
     
     @include transition(padding-top 250ms ease-out);
