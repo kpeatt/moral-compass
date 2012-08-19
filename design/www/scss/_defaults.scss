@@ -46,10 +46,13 @@ body {
     position: relative;
     font-family: $sans-stack;
     width: $portraitwidth * 1px;
-    height: 480px;
+    height: 434px;
     padding-top: 50px;
-    padding-bottom: 100px;
     overflow: scroll;
     background: #eee;
+    
+    &.search-open {
+        padding-top: 112px;
+    }
     
 }

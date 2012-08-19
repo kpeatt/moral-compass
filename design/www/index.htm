@@ -3,21 +3,29 @@
 		<title>Homepage</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<link href="screen.css" media="screen" rel="stylesheet" type="text/css" />
+		<script>
+        // Scroll the page past URL bar if user did not scroll manually, and hash is absent.
+        $(this).bind('load', function() {
+            location.hash || setTimeout(function() {
+                pageYOffset || scrollTo(0, 1);
+            }, 250);
+        });
+		</script>
 	</head>
 	<body class="home" id="mc-container-home">
 
 	   <header id="mc-topbar">
 	       <h1>MoralCode</h1>
-	   </header>
-	   
-	   <div id="mc-content" class="content">
-	   
+	       
 	       <div id="mc-container-search" class="searchbar">
 	       
 	           <input type="search" placeholder="Enter a company name">
 	           <input type="submit" value="Search">
 	       
 	       </div>
+	   </header>
+	   
+	   <div id="mc-content" class="content">
 	       
 	       <nav>
 	       
@@ -79,6 +87,5 @@
 	       
 	   </footer>
 	
-	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 	</body>
 </html>
