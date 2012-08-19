@@ -18,3 +18,5 @@ bin
 include
 /lib/
 ./src/
+
+/frontend/SWMoralCompassPG2/www/.sass-cache/

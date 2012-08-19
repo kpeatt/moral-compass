@@ -25,23 +25,20 @@
         <meta name = "format-detection" content = "telephone=no"/>
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
         <link href="screen.css" media="screen" rel="stylesheet" type="text/css" />
-        <title>Hello Cordova</title>
+        <title>MoralCode</title>
         <script type="text/javascript" src="cordova-2.0.0.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="js/ScanditSDK.js"></script>
         <script type="text/javascript" src="js/moralcompass.js"></script>
         <script type="text/javascript" src="js/protovis.js"></script>
-        
-        <style type="text/css">
-            
-        </style>
+
     </head>
-    <body>
+    <body class="mc-container-home">
         
         <header id="mc-topbar">
 	       <h1>MoralCode</h1>
-               <div id="mc-container-search" class="searchbar">
+           <div id="mc-container-search" class="searchbar">
 	       
 	           <input type="search" placeholder="Enter a company name">
 	           <input type="submit" value="Search">
@@ -57,7 +54,7 @@
 	       <nav>
 	           <ul>
 	               <li>
-                           <a href="#" id="mc-button-home-scan" class="button scan">
+                        <a href="#" id="mc-button-home-scan" class="button scan">
 	                       Scan a Product
 	                   </a>
 	               </li> 
@@ -81,11 +78,31 @@
         
         <!-- quiz -->
         <div id="mc-container-quiz" class="home">
-	   <div id="mc-content-quiz" class="content">
+            <div id="mc-content-quiz" class="content">
+            
+            <h1>Set your MoralCode</h1>
+            
+            <div class="question">
+            
+               <h2>Same-sex marriage:</h2> 
+               
+               <ul class="choice">
+                   <li>
+                       <a href="#" class="button support">Support</a>
+                   </li>
+                   <li>
+                       <a href="#" class="button dontcare">Don't care</a>
+                   </li>
+                   <li>
+                       <a href="#" class="button oppose">Oppose</a>
+                   </li>
+               </ul>
+	           
+	       </div>
 	       
 	       <div class="question">
 	       
-	           <h2>Same-sex marriage:</h2> 
+	           <h2>Testing on animals:</h2> 
 	           <ul class="choice">
 	               <li>
 	                   <a href="#" class="button support">Support</a>
@@ -97,7 +114,43 @@
 	                   <a href="#" class="button oppose">Oppose</a>
 	               </li>
 	           </ul>
+	           
 	       </div>
+	       
+	       <div class="question">
+	       
+	           <h2>Use of child labour:</h2> 
+	           <ul class="choice">
+	               <li>
+	                   <a href="#" class="button support">Support</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button dontcare">Don't care</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button oppose">Oppose</a>
+	               </li>
+	           </ul>
+	           
+	       </div>
+	       
+	       <div class="question">
+	       
+	           <h2>Government-set minimum wage:</h2> 
+	           <ul class="choice">
+	               <li>
+	                   <a href="#" class="button support">Support</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button dontcare">Don't care</a>
+	               </li>
+	               <li>
+	                   <a href="#" class="button oppose">Oppose</a>
+	               </li>
+	           </ul>
+	           
+	       </div>
+	       
 	   </div>
         </div>
         <!-- end quiz -->

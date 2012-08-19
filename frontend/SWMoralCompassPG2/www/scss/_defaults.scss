@@ -46,13 +46,20 @@ body {
     position: relative;
     font-family: $sans-stack;
     width: $portraitwidth * 1px;
-    height: 434px;
-    padding-top: 50px;
+    padding-top: 35px;
+    padding-bottom: 86px;
     overflow: scroll;
     background: #eee;
     
     &.search-open {
-        padding-top: 112px;
+        padding-top: 97px;
+    }
+    
+    &.mc-container-home {
+        padding-top: 50px;
+        &.search-open {
+            padding-top: 112px;
+        }
     }
     
 }
