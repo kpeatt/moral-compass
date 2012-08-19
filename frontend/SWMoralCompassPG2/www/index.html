@@ -36,7 +36,7 @@
     </head>
     <body class="mc-container-home">
         
-        <header id="mc-topbar" onclick='switchToView("mc-container-summary");'>
+        <header id="mc-topbar" onclick='debugToggleAndShowSummary();'>
 	       <h1>MoralCode</h1>
            <div id="mc-container-search" class="searchbar">
 	       
@@ -348,11 +348,18 @@
             MCApp.handleUpdateAfterCompanyFound = function(){
                 summaryView.setCompanyName(MCApp.getCurrentCompanyName());
                 var barcode = MCApp.getCurrentBarcode();
+                alert(barcode);
                 var testGen = new MCTest();
                 var testVector = testGen.getTestStancesFromBarcode(barcode);
                 var numAgree = myStances.getNumAgreeToArrayOfCompanyStances(testVector);
                 summaryView.setPercentAgree(numAgree/9);
                 summaryView.setPercentUsersAgree(50);
+                summaryView.updateView();
+                switchToView("mc-container-summary");
+            }
+            
+            function debugToggleAndShowSummary(){
+                summaryView.setPercentAgree(Math.random()<.5?Math.random()*100:50);
                 summaryView.updateView();
                 switchToView("mc-container-summary");
             }

@@ -107,6 +107,8 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
             callback(companyName);
         else
             MCApp.getCompanyNameFromBarcodeRemote(barcodeStr, callback);
+        
+        MCApp.currentCompanyName = companyName;
     });
 }
 
@@ -117,11 +119,17 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
  */
 MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     var code = $.trim(barcodeStr);
-    if (code.indexOf("004800") === 0) callback("Unilever");
-    else if (code.indexOf("055000") === 0) callback("Nestle");
-    else if (code.indexOf("065633") === 0) callback("Nature Valley");
-    else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
-    else if (code.indexOf("038000") === 0) callback("Kellogg");
+        // more general
+        // 8->3 13->6
+	if (code.indexOf("004800") === 0) callback("Unilever");
+	else if (code.indexOf("055000") === 0) callback("Nestle");
+	else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
+	else if (code.indexOf("038000") === 0) callback("Kellogg");
+        
+        // specific products at startup weekend
+        else if (code == "065633073814") callback("Nature Valley");
+        else if (code == "070847002901") callback("Monster Beverage");
+        else if (code == "057961023517") callback("Sun-Rype Products");
     else callback(false);
 }
 
@@ -534,8 +542,36 @@ MCSummaryViewController = function(){
         // unimplemented
     }
     
+    this.getIndicatorType = function(){
+        if(this.getPercentAgree() > 50) return "support";
+        else if(this.getPercentAgree() < 50) return "oppose";
+        else if(this.getPercentAgree() == 50) return "neutral";
+        // add case for all "don't care" matches
+        else return "dontknow";
+    }
+    
     this.updateSupportIndicator = function(){
-        // unimplemented
+        var type = this.getIndicatorType();
+        
+        // TODO: move this somewhere that makes more sense
+        var types = ["support", "oppose", "neutral", "dontknow"];
+        var div = $('#mc-support-indicator');
+        
+        // remove all, then add relevent type
+        for(var i=0; i<types.length; i++){
+            div.removeClass(types[i]);
+        }
+        div.addClass(type);
+        
+        if(type == "support"){
+            div.html("support");
+        }else if(type == "oppose"){
+            div.html("oppose");
+        }else if(type == "neutral"){
+            div.html("your choice");
+        }else{
+            div.html("we're not sure");
+        }
     }
     
     this.updateOthersAgreeVisualization = function(){
