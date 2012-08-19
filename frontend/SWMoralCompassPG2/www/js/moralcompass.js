@@ -39,6 +39,10 @@ MCApp.handleUpdateAfterCompanyFound = function(){
     alert("update handled");
 }
 
+MCApp.handleScannerCancelOrFail() = function(){
+    alert("replace this cancel placeholder function!");
+}
+
 MCApp.getCurrentBarcode = function(){
     return MCApp.currentBarcode;
 }
@@ -95,6 +99,7 @@ MCApp.scanBarcodeSuccessScandit = function(concatResult){
  */
 MCApp.scanBarcodeFailScandit = function(){
     MCApp.currentBarcode = false;
+    MCApp.handleScannerCancelOrFail();
 }
 
 /**

@@ -196,8 +196,6 @@
         <div id="mc-container-detail" class="container">detail!</div>
         <div id="mc-container-settings" class="container">
             settings!
-            <div class="spinner">
-           </div>
         </div>
         
         
@@ -319,6 +317,14 @@
                     searchOpen();
                 }
             }
+            
+            function mcShowSpinner(){
+                $('.spinner').show();
+            }
+            
+            function mcHideSpinner(){
+                $('.spinner').hide();
+            }
 
             // home search scan survey setting
             
@@ -335,6 +341,7 @@
             });
             
             $("#mc-link-scan").click(function() {
+                mcShowSpinner();
                 MCApp.scanBarcode();
             });
             
@@ -347,6 +354,7 @@
             });
             
             $("#mc-button-home-scan").click(function(){
+                mcShowSpinner();
                 MCApp.scanBarcode();
             });
             
@@ -376,7 +384,12 @@
                 summaryView.setPercentAgree(numAgree/9);
                 summaryView.setPercentUsersAgree(50);
                 summaryView.updateView();
+                mcHideSpinner();
                 switchToView("mc-container-summary");
+            }
+            
+            MCApp.handleScannerCancelOrFail = function(){
+                mcHideSpinner();
             }
             
             function debugToggleAndShowSummary(){
@@ -388,7 +401,7 @@
             
             // Quiz view controller
             
-            
+           mcHideSpinner();
            switchToView("mc-container-home");
             
         </script>
