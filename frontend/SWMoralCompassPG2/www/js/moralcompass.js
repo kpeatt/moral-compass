@@ -437,11 +437,9 @@ MCTest = function(){
  */
 MCTest.prototype.getTestStancesFromBarcode = function(barcode){
     var size = MCBeliefDictionary.getNumBeliefs();
-    var numCode = parseInt(barcode);
     var toyData = [];
-    
     for(var i=0; i<size; i++){
-        toyData[i] = Math.floor(numCode/(i+1)) % 3;
+        toyData[i] = parseInt(barcode.charAt(i))%3;
     }
     
     return toyData;
@@ -473,10 +471,17 @@ MCSummaryViewController = function(){
     /**
      *  What word describes agreeing or disagreeing?
      * 
-     *  boolean -> string
+     *  void -> string
      */
-    this.getDescriptionWord = function(isAgree){
-        return isAgree?"buddies":"adversaries";
+    this.getDescriptionWord = function(){
+        var type = this.getIndicatorType();
+        if(type == "support"){
+            return "buddies";
+        }else if(type == "oppose"){
+            return "adversaries";
+        }else if(type == "neutral"){
+            return "neutral";
+        }else return "unknown";
     }
     
     /**
@@ -519,7 +524,6 @@ MCSummaryViewController = function(){
     this.getCompanyName = function(){return this.company;}
     this.getPercentAgree = function(){return this.percentAgree;}
     this.getPercentUsersAgree = function(){return this.percentUsersAgree;}
-    this.getIsSupport = function(){return this.isSupport;}
     
     /**
      *  Updates the view with the information in this controller.
@@ -527,8 +531,14 @@ MCSummaryViewController = function(){
      *  void -> void
      */
     this.updateView = function(){
-        $('#mc-support-description').html("You and " + this.getCompanyName()
-                                           + " are " + this.getDescriptionWord(this.getIsSupport()));
+        var isCompanyKnown = this.getCompanyName() != null && this.getCompanyName() != 'unknown';
+        
+        if(this.getDescriptionWord()!="unknown"){
+            $('#mc-support-description').html("You and " + this.getCompanyName()
+                                             + " are " + this.getDescriptionWord() + ".");
+        }else{
+            $('#mc-support-description').html("We're still learning about " + isCompanyKnown?this.getCompanyName():"this company.");
+        }
         $('#mc-support-user-agree-text-percent').html(Math.floor(this.getPercentAgree()));
         $('#mc-support-others-agree-text-percent').html(Math.floor(this.getPercentUsersAgree()));
         
