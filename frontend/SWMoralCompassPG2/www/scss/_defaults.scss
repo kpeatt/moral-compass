@@ -58,4 +58,16 @@ body {
     
     @include transition(padding-top 250ms ease-out);
     
+    .spinner {
+        position: absolute;
+        top: 50%;
+        margin-top: -75px;
+        left: 50%;
+        width: 150px;
+        height: 150px;
+        margin-left: -75px;
+        background: rgba(255,255,255,0.9) url(i/ajax-loader.gif) center no-repeat;
+        @include border-radius(2px);
+    }
+    
 }
