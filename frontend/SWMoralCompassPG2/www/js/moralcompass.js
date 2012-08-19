@@ -546,7 +546,7 @@ MCSummaryViewController = function(){
         
         
         this.updateBarChart();
-        this.updateSupportIndicator()
+        this.updateSupportIndicator();
         this.updateOthersAgreeVisualization();
     }
     
