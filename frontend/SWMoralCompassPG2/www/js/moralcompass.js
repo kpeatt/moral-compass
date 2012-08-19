@@ -705,18 +705,19 @@ MCSummaryViewController = function(){
         /**
          *  Produces a section that represents a quiz question.
          *  
-         *  string -> string
+         *  string uint -> string
          */
-        this.getHtmlForIssue = function(theIssue){
+        this.getHtmlForIssue = function(theIssue, idx){
             var theIssueSentenceCase = theIssue.charAt(0).toUpperCase() 
                                              + theIssue.slice(1).toLowerCase();
-            var questionSection =
-                '<div class="question mc-quiz-question">\n'+
+            var theDivId = "mc-quiz-question-id-"+idx;
+            var questionSection = 
+                '<div class="question mc-quiz-question" id="'+theDivId+'">\n'+
 	           '<h2>'+theIssueSentenceCase+'</h2>\n'+
 	           '<ul class="choice">\n'+
-	               '<li><a href="#" class="button support">Support</a></li>\n'+
-	               '<li><a href="#" class="button dontcare">Don\'t care</a></li>\n'+
-	               '<li><a href="#" class="button oppose">Oppose</a></li>\n'+
+	               '<li><a href="#" class="button support" onClick="myStances.setStance('+idx+', MCStance.yes()); myStances.save();$(\'#'+theDivId+'\').remove();">Support</a></li>\n'+
+	               '<li><a href="#" class="button dontcare" onClick="myStances.setStance('+idx+', MCStance.donotcare()); myStances.save();$(\'#'+theDivId+'\').remove();">Don\'t care</a></li>\n'+
+	               '<li><a href="#" class="button oppose" onClick="myStances.setStance('+idx+', MCStance.no()); myStances.save();$(\'#'+theDivId+'\').remove();">Oppose</a></li>\n'+
 	           '</ul>\n</div>\n';
             return questionSection;
         }
@@ -731,11 +732,13 @@ MCSummaryViewController = function(){
          */
         this.produceQuizHtml = function(){
             var result = "";
-            for(var i=0; i<this.arrOfIssues; i++){
-                result = result + this.getHtmlForIssue(this.arrOfIssues[i]);
+            for(var i=0; i<this.arrOfIssues.length; i++){
+                result = result + this.getHtmlForIssue(this.arrOfIssues[i], i);
             }
             return result;
         }
+         
+        
     }
     
 }
