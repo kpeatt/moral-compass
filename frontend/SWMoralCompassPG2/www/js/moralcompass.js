@@ -124,17 +124,24 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
  */
 MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     var code = $.trim(barcodeStr);
+        if(code == "070847009047"){
+            callback("Startup Weekend");
+            return;
+        }
+    
         // more general
         // 8->3 13->6
 	if (code.indexOf("004800") === 0) callback("Unilever");
 	else if (code.indexOf("055000") === 0) callback("Nestle");
 	else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
 	else if (code.indexOf("038000") === 0) callback("Kellogg");
+        else if (code.indexOf("057961") === 0) callback("Sun-Rype Products"); 
         
         // specific products at startup weekend
         else if (code == "065633073814") callback("Nature Valley");
         else if (code == "070847002901") callback("Monster Beverage");
         else if (code == "057961023517") callback("Sun-Rype Products");
+        
     else callback(false);
 }
 

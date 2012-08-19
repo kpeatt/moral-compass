@@ -173,7 +173,7 @@
                     <div class="data" id="mc-summary-chart-data"></div>
                 </div>
                 
-                <div class="causes">
+                <div class="causes" id="mc-cause-list">
                     <ul>
                         <li class="agree">Same-Sex marriage</li>
                         <li class="agree">Testing on animals</li>
@@ -335,6 +335,31 @@
             function mcHideSpinner(){
                 $('.spinner').hide();
             }
+            
+            function mcSetTestStances(isSWknd){
+                var result;
+                
+                if(isSWknd){
+                    result =
+                        '<ul>'+
+                        '<li class="agree">Awesomeness</li>'+
+                        '<li class="agree">Fun</li>'+
+                        '<li class="agree">Startups</li>'+
+                        '<li class="agree">More awesomeness</li>'+
+                        '</ul>';
+                }else{
+                    result =
+                    '<ul>'+
+                        '<li class="agree">Same-Sex marriage</li>'+
+                        '<li class="agree">Testing on animals</li>'+
+                        '<li class="agree">Use of child labour</li>'+
+                        '<li class="disagree">Government-set minimum wage</li>'+
+                    '</ul>';
+                }
+                
+                $('#mc-cause-list').html(result);
+            }
+            
 
             // home search scan survey setting
             
@@ -386,13 +411,21 @@
             
             MCApp.handleUpdateAfterCompanyFound = function(){
                 summaryView.setCompanyName(MCApp.getCurrentCompanyName());
-                var barcode = MCApp.getCurrentBarcode();
-                //alert(barcode);
-                var testGen = new MCTest();
-                var testVector = testGen.getTestStancesFromBarcode(barcode);
-                var numAgree = myStances.getNumAgreeToArrayOfCompanyStances(testVector);
-                summaryView.setPercentAgree(numAgree/9*100);
-                summaryView.setPercentUsersAgree(50);
+                
+                if(MCApp.getCurrentCompanyName().toLowerCase() == "startup weekend"){
+                    summaryView.setPercentAgree(100);
+                    summaryView.setPercentUsersAgree(100);
+                    mcSetTestStances(true);
+                }else{
+                    var barcode = MCApp.getCurrentBarcode();
+                    //alert(barcode);
+                    var testGen = new MCTest();
+                    var testVector = testGen.getTestStancesFromBarcode(barcode);
+                    var numAgree = myStances.getNumAgreeToArrayOfCompanyStances(testVector);
+                    summaryView.setPercentAgree(numAgree/9*100);
+                    summaryView.setPercentUsersAgree(50);
+                    mcSetTestStances(false);
+                }
                 summaryView.updateView();
                 mcHideSpinner();
                 switchToView("mc-container-summary");
