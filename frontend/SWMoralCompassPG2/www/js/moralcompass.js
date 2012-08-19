@@ -62,7 +62,10 @@ MCApp.scanBarcodeSuccessScandit = function(concatResult){
     var resultArray = concatResult.split("|"); 
     MCApp.currentBarcode = resultArray[1];
     MCApp.getCompanyNameFromBarcode(MCApp.currentBarcode, function(companyName) {
-        alert("Company: " + companyName);
+        if (companyName)
+            alert("Company: " + companyName);
+        else
+            alert("Product not found");
     });
 }
 
@@ -95,11 +98,15 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
  */
 MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     var code = $.trim(barcodeStr);
-	if (code.indexOf("004800") === 0) callback("Unilever");
-	else if (code.indexOf("055000") === 0) callback("Nestle");
-    //else if (code.indexOf("065633") === 0) callback("Nature Valley");
-	else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
-	else if (code.indexOf("038000") === 0) callback("Kellogg");
+    if (code.indexOf("004800") === 0) callback("Unilever");
+    else if (code.indexOf("055000") === 0) callback("Nestle");
+    else if (code.indexOf("065633") === 0) callback("Nature Valley");
+    else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
+    else if (code.indexOf("038000") === 0) callback("Kellogg");
+    else if (code.length < 13 && code.indexOf("067") === 0) callback("Coca-Cola");
+    else if (code.length >= 13 && code.indexOf("0067000") === 0) callback("Coca-Cola");
+    else if (code.indexOf("070847") === 0) callback("Coca-Cola");
+    else if (code.indexOf("057961") == 0) callback("Sun-Rype");
     else callback(false);
 }
 
@@ -108,8 +115,12 @@ MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
  *  
  */
 MCApp.getCompanyNameFromBarcodeRemote = function(barcodeStr, callback) {
-    //MCApp.getProductInfoFromGoodGuide(barcodeStr, callback);
-    MCApp.getProductInfoFromGoogle(barcodeStr, callback);
+    MCApp.getProductInfoFromGoogle(barcodeStr, function(companyName) {
+        if (companyName)
+            callback(companyName);
+        else
+            MCApp.getProductInfoFromGoodGuide(barcodeStr, callback);
+    });
 }
 
 /**
@@ -154,6 +165,8 @@ MCApp.getCompanyNameFromGoodGuideID = function(id, callback) {
                 if (MCApp.currentCompanyName) {
                     callback(MCApp.currentCompanyName);
                     console.log("Found copmany: " + MCApp.currentCompanyName);
+                } else {
+                    callback(false);
                 }
             }
     });
