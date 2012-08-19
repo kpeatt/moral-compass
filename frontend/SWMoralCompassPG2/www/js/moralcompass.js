@@ -628,6 +628,7 @@ MCSummaryViewController = function(){
         }else{
             $('#mc-support-description').html("We're still learning about this company.");
             this.setPercentAgree(50);
+            $('#mc-cause-list').html("none");
         }
         $('#mc-support-user-agree-text-percent').html(Math.floor(this.getPercentAgree())+'%');
         $('#mc-support-others-agree-text-percent').html(Math.floor(this.getPercentUsersAgree())+'%');
