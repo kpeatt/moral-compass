@@ -137,9 +137,9 @@ MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
     else if (code.indexOf("038000") === 0) callback("Kellogg");
     else if (code.indexOf("057961") === 0) callback("Sun-Rype Products"); 
+    else if (code.indexOf("065633") === 0) callback("Nature Valley");
 
     // specific products at startup weekend
-    else if (code == "065633073814") callback("Nature Valley");
     else if (code == "070847002901") callback("Monster Beverage");
     else if (code == "057961023517") callback("Sun-Rype Products");
 
