@@ -1,7 +1,13 @@
+#!/usr/bin/env python
 from BeautifulSoup import BeautifulSoup
 import requests, re, urllib
 
 import re, htmlentitydefs
+
+import os, sys 
+from datetime import date, timedelta
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "moralcompass.settings")
+from moralcompass.core.models import Organization, Cause, Stance
 
 ##
 # Removes HTML or XML character references and entities from a text string.
@@ -89,4 +95,13 @@ for index, item in enumerate(cp):
         #so append, but get the company name from original DOMA list
         companies.append(domas[index].strip('\n'))
 
-#companies is the final list of companies which combines DOMA and ones from Wikipedia
+good_companies = companies
+
+for company in good_companies:
+    #organization = Organization.objects.create(name=company)
+    #organization.save()
+
+    rights = Cause.objects.filter(question='Same-sex marriage')
+    print rights
+
+
