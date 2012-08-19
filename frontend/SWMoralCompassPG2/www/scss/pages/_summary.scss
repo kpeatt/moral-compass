@@ -1,0 +1,28 @@
+#mc-container-summary {
+    
+    .cause-indicator {
+        
+        height: 118px;
+        margin-top: -1px;
+        
+        background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-bluetexture@2x.png) repeat;
+        background-size: auto 118px, 32px auto;
+        
+    }
+    
+    &.support .cause-indicator {
+        background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greentexture@2x.png) repeat;
+    }
+    
+    &.oppose .cause-indicator {
+        background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-redtexture@2x.png) repeat;
+    }
+    
+    &.neutral .cause-indicator {
+    }
+    
+    &.dontknow .cause-indicator {
+        background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greytexture@2x.png) repeat;
+    }
+        
+}

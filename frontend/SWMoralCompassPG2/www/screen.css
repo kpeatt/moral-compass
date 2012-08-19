@@ -124,14 +124,6 @@ body {
 body.search-open {
   padding-top: 112px;
 }
-/* line 58, scss/_defaults.scss */
-body.mc-container-home {
-  padding-top: 50px;
-}
-/* line 60, scss/_defaults.scss */
-body.mc-container-home.search-open {
-  padding-top: 112px;
-}
 
 /* line 1, scss/modules/_footer.scss */
 #mc-bottom-bar {
@@ -204,8 +196,11 @@ body.mc-container-home.search-open {
   left: 0;
   width: 100%;
   background: url(i/bg-bluenoise.png);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
-/* line 10, scss/modules/_header.scss */
+/* line 12, scss/modules/_header.scss */
 #mc-topbar h1 {
   display: block;
   padding: 10px 0;
@@ -403,4 +398,24 @@ body.mc-container-home.search-open {
 #mc-container-quiz .question .choice .dontcare {
   background: #cccccc url(i/icon-dontcare@2x.png) center no-repeat;
   background-size: auto 16px;
+}
+
+/* line 3, scss/pages/_summary.scss */
+#mc-container-summary .cause-indicator {
+  height: 118px;
+  margin-top: -1px;
+  background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-bluetexture@2x.png) repeat;
+  background-size: auto 118px, 32px auto;
+}
+/* line 13, scss/pages/_summary.scss */
+#mc-container-summary.support .cause-indicator {
+  background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greentexture@2x.png) repeat;
+}
+/* line 17, scss/pages/_summary.scss */
+#mc-container-summary.oppose .cause-indicator {
+  background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-redtexture@2x.png) repeat;
+}
+/* line 24, scss/pages/_summary.scss */
+#mc-container-summary.dontknow .cause-indicator {
+  background: url(i/bg-cause-indicator.png) no-repeat, url(i/bg-greytexture@2x.png) repeat;
 }
