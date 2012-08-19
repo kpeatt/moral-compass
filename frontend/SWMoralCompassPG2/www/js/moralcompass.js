@@ -471,6 +471,23 @@ MCTest.prototype.getTestStancesFromBarcode = function(barcode){
     return toyData;
 }
 
+MCTest.prototype.getTestStancesFromCompanyName = function(companyName){
+    companyName = companyName.toLocaleString();
+    var size = MCBeliefDictionary.getNumBeliefs();
+    var toyData = [];
+    for(var i=0; i<min(size, companyName.length); i++){
+        toyData[i] = companyName.charAt(i)%3;
+    }
+    
+    if (companyName.length < size) {
+        for(var j=companyName.length; j<size; j++){
+            toyData[j] = 1;
+        }
+    }
+    
+    return toyData;
+}
+
 /**
  *  View controller for summary view.
  */
