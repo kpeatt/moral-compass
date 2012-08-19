@@ -1,0 +1,30 @@
+[
+  {
+    "pk": 4,
+    "model": "core.organization",
+    "fields": {
+      "name": "Adobe Systems"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "core.cause",
+    "fields": {
+      "question": "Same-sex marriage"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "core.cause",
+    "fields": {
+      "question": "Testing on animals"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "core.cause",
+    "fields": {
+      "question": "Use of child labour"
+    }
+  }
+]
