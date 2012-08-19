@@ -27,6 +27,25 @@ MCApp.getCurrentBarcode = function(){
     return MCApp.currentBarcode;
 }
 
+/**
+ *  The handler, called after a company has been found.
+ *  
+ *  This should be in the success callbacks of the barcode scanning functions.
+ *  
+ *  void -> void
+ */
+MCApp.handleUpdateAfterCompanyFound = function(){
+    // Update/replace me as needed!
+}
+
+MCApp.getCurrentBarcode = function(){
+    return MCApp.currentBarcode;
+}
+
+MCApp.getCurrentCompanyName = function(){
+    return MCApp.currentCompanyName;
+}
+
 MCApp.scanBarcodeWithScandit = function(){
     var SCANDIT_APP_KEY = "nIGuaOlnEeGXNUEZL6NnwOyanGE2nEdWOtIrkDGfuVs";
      ScanditSDK.nativeFunction(MCApp.scanBarcodeSuccessScandit,
@@ -62,7 +81,9 @@ MCApp.scanBarcodeSuccessScandit = function(concatResult){
     var resultArray = concatResult.split("|"); 
     MCApp.currentBarcode = resultArray[1];
     MCApp.getCompanyNameFromBarcode(MCApp.currentBarcode, function(companyName) {
-        alert("Company: " + companyName);
+        MCApp.currentCompanyName = companyName;
+        MCApp.handleUpdateAfterCompanyFound();
+        
     });
 }
 
@@ -422,5 +443,104 @@ MCTest.prototype.getTestStancesFromBarcode = function(barcode){
  * 
  */
 MCQuizItem = function(){
+    
+}
+
+
+/**
+ *  View controller for summary view.
+ */
+MCSummaryViewController = function(){
+    
+    // Constants
+    this.viewContainerId = "mc-container-summary";
+    
+    // State
+    this.company = "unknown";
+    this.percentAgree = 0;
+    this.percentUsersAgree = 0;
+    this.isSupport = false;
+    
+    /**
+     *  What word describes agreeing or disagreeing?
+     * 
+     *  boolean -> string
+     */
+    this.getDescriptionWord = function(isAgree){
+        return isAgree?"buddies":"adversaries";
+    }
+    
+    /**
+     *  Sets the company name.
+     *  
+     *  string -> void
+     */
+    this.setCompanyName = function(companyName){
+        this.company = companyName;
+    }
+    
+    /**
+     *  Sets the percent the user agree.
+     *  
+     *  uint -> void
+     */
+    this.setPercentAgree = function(percent){
+        this.percentAgree = percent;
+    }
+    
+    /**
+     *  Sets the percent other users agree.
+     *  
+     *  uint -> void
+     */
+    this.setPercentUsersAgree = function(percent){
+        this.percentUsersAgree = percent;
+    }
+    
+    /**
+     *  Sets whether this company is supported by the user.
+     *  
+     *  boolean -> void
+     */
+    this.setIsSupport = function(isSupport){
+        this.isSupport = isSupport;
+    }
+    
+    /** getters **/
+    this.getCompanyName = function(){return this.company;}
+    this.getPercentAgree = function(){return this.percentAgree;}
+    this.getPercentUsersAgree = function(){return this.percentUsersAgree;}
+    this.getIsSupport = function(){return this.isSupport;}
+    
+    /**
+     *  Updates the view with the information in this controller.
+     *  
+     *  void -> void
+     */
+    this.updateView = function(){
+        $("mc-support-description").text("You and "+this.getCompanyName()
+            +" are "+this.getDescriptionWord(this.getIsSupport()));
+        $("mc-support-user-agree-text-percent").text(Math.floor(this.getPercentAgree()));
+        $("mc-support-others-agree-text-percent").text(Math.floor(this.getPercentUsersAgree()));
+        
+        this.updateBarChart();
+        this.updateSupportIndicator()
+        this.updateOthersAgreeVisualization();
+    }
+    
+    this.updateBarChart = function(){
+        // unimplemented
+    }
+    
+    this.updateSupportIndicator = function(){
+        // unimplemented
+    }
+    
+    this.updateOthersAgreeVisualization = function(){
+        // unimplemented
+    }
+        
+    
+    
     
 }
