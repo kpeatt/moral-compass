@@ -351,6 +351,10 @@
                 toggleSearch();
             })
             
+            $('#mc-container-summary .card').click(function(){
+               $(this).toggleClass("open"); 
+            });
+            
             
             // summary view controller
             var summaryView = new MCSummaryViewController();
