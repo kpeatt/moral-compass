@@ -561,13 +561,13 @@ MCSummaryViewController = function(){
         }
         
         var isCompanyKnown = this.getCompanyName() != null && this.getCompanyName() != 'unknown';
-        console.log("Is known? " + isCompanyKnown);
         if(isCompanyKnown){
             $('#mc-support-description').html(this.getCompanyName().charAt(0).toUpperCase() 
                                              + this.getCompanyName().slice(1) + " and you are "
                                              + this.getDescriptionWord() + ".");
         }else{
             $('#mc-support-description').html("We're still learning about this company.");
+            this.setPercentAgree(50);
         }
         $('#mc-support-user-agree-text-percent').html(Math.floor(this.getPercentAgree())+'%');
         $('#mc-support-others-agree-text-percent').html(Math.floor(this.getPercentUsersAgree())+'%');
