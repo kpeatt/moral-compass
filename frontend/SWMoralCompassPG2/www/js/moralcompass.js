@@ -107,6 +107,8 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
             callback(companyName);
         else
             MCApp.getCompanyNameFromBarcodeRemote(barcodeStr, callback);
+        
+        MCApp.currentCompanyName = companyName;
     });
 }
 
@@ -117,11 +119,17 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
  */
 MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     var code = $.trim(barcodeStr);
-    if (code.indexOf("004800") === 0) callback("Unilever");
-    else if (code.indexOf("055000") === 0) callback("Nestle");
-    else if (code.indexOf("065633") === 0) callback("Nature Valley");
-    else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
-    else if (code.indexOf("038000") === 0) callback("Kellogg");
+        // more general
+        // 8->3 13->6
+	if (code.indexOf("004800") === 0) callback("Unilever");
+	else if (code.indexOf("055000") === 0) callback("Nestle");
+	else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
+	else if (code.indexOf("038000") === 0) callback("Kellogg");
+        
+        // specific products at startup weekend
+        else if (code == "065633073814") callback("Nature Valley");
+        else if (code == "070847002901") callback("Monster Beverage");
+        else if (code == "057961023517") callback("Sun-Rype Products");
     else callback(false);
 }
 
@@ -403,6 +411,8 @@ MCBeliefs.prototype.getNumAgreeToArrayOfCompanyStances = function(stancesArray){
         }
     }
     
+    alert(JSON.stringify(this.getStances())+"\n"+JSON.stringify(stancesArray));
+    
     return sumMatch;
 }
 
@@ -429,11 +439,9 @@ MCTest = function(){
  */
 MCTest.prototype.getTestStancesFromBarcode = function(barcode){
     var size = MCBeliefDictionary.getNumBeliefs();
-    var numCode = parseInt(barcode);
     var toyData = [];
-    
     for(var i=0; i<size; i++){
-        toyData[i] = Math.floor(numCode/(i+1)) % 3;
+        toyData[i] = parseInt(barcode.charAt(i))%3;
     }
     
     return toyData;
@@ -465,10 +473,17 @@ MCSummaryViewController = function(){
     /**
      *  What word describes agreeing or disagreeing?
      * 
-     *  boolean -> string
+     *  void -> string
      */
-    this.getDescriptionWord = function(isAgree){
-        return isAgree?"buddies":"adversaries";
+    this.getDescriptionWord = function(){
+        var type = this.getIndicatorType();
+        if(type == "support"){
+            return "buddies";
+        }else if(type == "oppose"){
+            return "adversaries";
+        }else if(type == "neutral"){
+            return "neutral";
+        }else return "unknown";
     }
     
     /**
@@ -511,7 +526,6 @@ MCSummaryViewController = function(){
     this.getCompanyName = function(){return this.company;}
     this.getPercentAgree = function(){return this.percentAgree;}
     this.getPercentUsersAgree = function(){return this.percentUsersAgree;}
-    this.getIsSupport = function(){return this.isSupport;}
     
     /**
      *  Updates the view with the information in this controller.
@@ -519,23 +533,59 @@ MCSummaryViewController = function(){
      *  void -> void
      */
     this.updateView = function(){
-        $('#mc-support-description').html("You and " + this.getCompanyName()
-                                           + " are " + this.getDescriptionWord(this.getIsSupport()));
-        $('#mc-support-user-agree-text-percent').html(Math.floor(this.getPercentAgree()));
-        $('#mc-support-others-agree-text-percent').html(Math.floor(this.getPercentUsersAgree()));
+        var isCompanyKnown = this.getCompanyName() != null && this.getCompanyName() != 'unknown';
+        
+        if(this.getDescriptionWord()!="unknown"){
+            $('#mc-support-description').html("You and " + this.getCompanyName()
+                                             + " are " + this.getDescriptionWord() + ".");
+        }else{
+            $('#mc-support-description').html("We're still learning about " + isCompanyKnown?this.getCompanyName():"this company.");
+        }
+        $('#mc-support-user-agree-text-percent').html(Math.floor(this.getPercentAgree())+'%');
+        $('#mc-support-others-agree-text-percent').html(Math.floor(this.getPercentUsersAgree())+'%');
         
         
         this.updateBarChart();
-        this.updateSupportIndicator()
+        this.updateSupportIndicator();
         this.updateOthersAgreeVisualization();
     }
     
     this.updateBarChart = function(){
-        // unimplemented
+        $('#mc-summary-chart-data').width(this.getPercentAgree()+"%");
+    }
+    
+    this.getIndicatorType = function(){
+        if(this.getPercentAgree() > 50) return "support";
+        else if(this.getPercentAgree() < 50) return "oppose";
+        else if(this.getPercentAgree() == 50) return "neutral";
+        // add case for all "don't care" matches
+        else return "dontknow";
     }
     
     this.updateSupportIndicator = function(){
-        // unimplemented
+        var type = this.getIndicatorType();
+        
+        // TODO: move this somewhere that makes more sense
+        var types = ["support", "oppose", "neutral", "dontknow"],
+            div = $('#mc-support-indicator'),
+            container = div.parent(),
+            str = div.find('span');
+        
+        // remove all, then add relevent type
+        for(var i=0; i<types.length; i++){
+            container.removeClass(types[i]);
+        }
+        container.addClass(type);
+        
+        if(type == "support"){
+            str.html("support");
+        }else if(type == "oppose"){
+            str.html("oppose");
+        }else if(type == "neutral"){
+            str.html("your choice");
+        }else{
+            str.html("whoops");
+        }
     }
     
     this.updateOthersAgreeVisualization = function(){
