@@ -247,14 +247,14 @@ MCApp.getCompanyBeliefsFromServer = function(companyName){
  */
 MCBeliefDictionary = {};
 MCBeliefDictionary.beliefArray = [
-                                    "same sex marriage",
+                                    "same-sex marriage",
                                     "testing on animals",
                                     "use of child labour",
                                     "government-set minimum wage",
-                                    "healthy living",
-                                    "planet earth",
-                                    "gay marriage",
-                                    "animal rights",
+                                    "government-funded healthcare",
+                                    "renewable energy",
+                                    "climate change",
+                                    "outsourcing labour",
                                     "fair trade",];
 MCBeliefDictionary.getBeliefForId = function(idx){
     if(idx < 0 || idx >= MCBeliefDictionary.beliefArray.length) return "unknown";
@@ -547,6 +547,66 @@ MCSummaryViewController = function(){
     this.getPercentUsersAgree = function(){return this.percentUsersAgree;}
     
     /**
+     *  Provides a list of agreement
+     *
+     *  example:
+     *  <ul>
+            <li class="agree">Same-Sex marriage</li>
+            <li class="agree">Testing on animals</li>
+            <li class="agree">Use of child labour</li>
+            <li class="disagree">Government-set minimum wage</li>
+        </ul>
+     */
+    this.getDetailedListHtml = function(arrOfUserStances, arrOfCompanyStances){
+        var arrAgreedIssues = [];
+        var arrDisagreedIssues = [];
+        var maxIdx = Math.min(arrOfUserStances.length, arrOfCompanyStances.length);
+        var i;
+        
+        for(i=0; i<maxIdx; i++){
+            if(arrOfUserStances[i] != MCStance.donotcare() 
+               && arrOfCompanyStances[i] != MCStance.donotcare()){
+                var currBelief = MCBeliefDictionary.getBeliefForId(i);
+                    
+                if(arrOfUserStances[i] == arrOfCompanyStances[i]){
+                    arrAgreedIssues.push(currBelief);
+                }else{
+                    arrDisagreedIssues.push(currBelief);
+                }
+            }
+        }
+        
+        var result = "";
+        for(i=0; i<arrAgreedIssues.length; i++){
+            result = result + '<li class="agree">' + arrAgreedIssues[i] + '</li>';
+        }
+        for(i=0; i<arrDisagreedIssues.length; i++){
+            result = result + '<li class="disagree">' + arrDisagreedIssues[i] + '</li>';
+        }
+        
+        return "<ul>" + result + "</ul>";
+    }
+    
+    /**
+     *  Produces the number of company stances that count.
+     *  
+     *  array(<MCStance>) array(<MCStance>) -> uint
+     */
+    this.getNumOfCausesThatCount = function(arrOfUserStances, arrOfCompanyStances){
+        var total = 0;
+        var maxIdx = Math.min(arrOfUserStances.length, arrOfCompanyStances.length);
+        
+        for(var i=0; i<maxIdx; i++){
+            if(arrOfUserStances[i] != MCStance.donotcare() &&
+                    arrOfCompanyStances[i] != MCStance.donotcare()){
+                total++;
+            }
+        }
+        
+        return total;
+    }
+    
+    /**
      *  Updates the view with the information in this controller.
      *  
      *  void -> void
@@ -696,11 +756,14 @@ MCSummaryViewController = function(){
 	       </div>
      */
     MCQuizViewController = function(){
+        /*
         this.arrOfIssues =
             ["same-sex marriage",
              "testing on animals",
              "use of child labour",
              "government-set minimum wage"];
+        */
+       this.arrOfIssues = MCBeliefDictionary.beliefArray;
         
         /**
          *  Produces a section that represents a quiz question.
