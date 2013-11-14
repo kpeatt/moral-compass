@@ -101,11 +101,14 @@ html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  /* Disable selection/Copy of UIWebView */
 }
 
 /** Mixins **/
 /** Elements **/
-/* line 44, scss/_defaults.scss */
+/* line 46, scss/_defaults.scss */
 body {
   position: relative;
   font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
@@ -121,31 +124,50 @@ body {
   -o-transition: padding-top 250ms ease-out;
   transition: padding-top 250ms ease-out;
 }
-/* line 55, scss/_defaults.scss */
+/* line 57, scss/_defaults.scss */
 body.search-open {
   padding-top: 112px;
+}
+/* line 63, scss/_defaults.scss */
+body .spinner {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  margin-top: -75px;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  margin-left: -75px;
+  background: rgba(255, 255, 255, 0.9) url(i/ajax-loader.gif) center no-repeat;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
 }
 
 /* line 1, scss/modules/_footer.scss */
 #mc-bottom-bar {
   position: fixed;
   bottom: 0;
+  z-index: 3;
   width: 100%;
   height: 86px;
   padding: 0 10px;
   background: url(i/bg-bottom-nav.png) center top no-repeat;
   background-size: auto 86px;
 }
-/* line 15, scss/modules/_footer.scss */
+/* line 16, scss/modules/_footer.scss */
 #mc-bottom-bar nav ul li {
   display: block;
   float: left;
 }
-/* line 19, scss/modules/_footer.scss */
+/* line 20, scss/modules/_footer.scss */
 #mc-bottom-bar nav ul li:last-child {
   margin-right: 0;
 }
-/* line 24, scss/modules/_footer.scss */
+/* line 25, scss/modules/_footer.scss */
 #mc-bottom-bar nav .button {
   text-indent: 100%;
   white-space: nowrap;
@@ -167,7 +189,7 @@ body.search-open {
   background: #5686ad url(i/icon-nav-home.png) center no-repeat;
   background-size: auto 23px;
 }
-/* line 44, scss/modules/_footer.scss */
+/* line 45, scss/modules/_footer.scss */
 #mc-bottom-bar nav .scan {
   position: relative;
   width: 64px;
@@ -176,15 +198,15 @@ body.search-open {
   background-size: auto 26px, auto;
   margin: 8px 18px 0 11px;
 }
-/* line 58, scss/modules/_footer.scss */
+/* line 59, scss/modules/_footer.scss */
 #mc-bottom-bar nav .search {
   background-image: url(i/icon-nav-search.png);
 }
-/* line 62, scss/modules/_footer.scss */
+/* line 63, scss/modules/_footer.scss */
 #mc-bottom-bar nav .quiz {
   background-image: url(i/icon-nav-compass.png);
 }
-/* line 66, scss/modules/_footer.scss */
+/* line 67, scss/modules/_footer.scss */
 #mc-bottom-bar nav .account {
   margin-right: 0;
   background-image: url(i/icon-nav-user.png);
@@ -195,7 +217,7 @@ body.search-open {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
   width: 100%;
   background: url(i/bg-bluenoise.png);
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
@@ -489,9 +511,10 @@ body.search-open {
   display: block;
   width: 30px;
   height: 30px;
-  background: #ccc;
+  background: #cccccc url(i/icon-carat-down@2x.png) center no-repeat;
+  background-size: auto 10px;
 }
-/* line 103, scss/pages/_summary.scss */
+/* line 104, scss/pages/_summary.scss */
 #mc-container-summary .card .chart {
   position: relative;
   height: 10px;
@@ -499,14 +522,14 @@ body.search-open {
   margin-top: 16px;
   background: #C60033;
 }
-/* line 114, scss/pages/_summary.scss */
+/* line 115, scss/pages/_summary.scss */
 #mc-container-summary .card .chart .data {
   position: relative;
   width: 25%;
   height: 10px;
   background: #69BE28;
 }
-/* line 121, scss/pages/_summary.scss */
+/* line 122, scss/pages/_summary.scss */
 #mc-container-summary .card .chart .data:after {
   content: '';
   position: absolute;
@@ -517,11 +540,120 @@ body.search-open {
   height: 12px;
   background: #333;
 }
-/* line 136, scss/pages/_summary.scss */
+/* line 135, scss/pages/_summary.scss */
+#mc-container-summary .card .chart.agree {
+  float: left;
+  width: 45px;
+  height: 45px;
+  background: url(i/bg-chart-usersagree.png) center no-repeat;
+  background-size: 45px;
+  margin-top: 0;
+  margin-right: 16px;
+  margin-bottom: 10px;
+}
+/* line 148, scss/pages/_summary.scss */
 #mc-container-summary .card .causes {
   display: none;
+  margin-top: 16px;
 }
-/* line 140, scss/pages/_summary.scss */
+/* line 153, scss/pages/_summary.scss */
+#mc-container-summary .card .causes li {
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+}
+/* line 157, scss/pages/_summary.scss */
+#mc-container-summary .card .causes li:before {
+  position: relative;
+  top: -2px;
+  content: '';
+  display: block;
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  background: #69be28 url(i/icon-support@2x.png) center no-repeat;
+  background-size: 10px auto;
+}
+/* line 170, scss/pages/_summary.scss */
+#mc-container-summary .card .causes li.agree {
+  color: #69BE28;
+}
+/* line 174, scss/pages/_summary.scss */
+#mc-container-summary .card .causes li.disagree {
+  color: #C60033;
+}
+/* line 176, scss/pages/_summary.scss */
+#mc-container-summary .card .causes li.disagree:before {
+  background: #c60033 url(i/icon-oppose@2x.png) center no-repeat;
+  background-size: 10px auto;
+}
+/* line 184, scss/pages/_summary.scss */
+#mc-container-summary .card.open:after {
+  background-image: url(i/icon-carat-up@2x.png);
+}
+/* line 188, scss/pages/_summary.scss */
 #mc-container-summary .card.open .causes {
   display: block;
+}
+
+/* line 1, scss/pages/_settings.scss */
+#mc-container-settings {
+  margin: 21px 10px 0;
+}
+/* line 5, scss/pages/_settings.scss */
+#mc-container-settings h1 {
+  margin-bottom: 21px;
+  font-size: 24px;
+  font-weight: 700;
+}
+/* line 14, scss/pages/_settings.scss */
+#mc-container-settings form {
+  *zoom: 1;
+  position: relative;
+  padding: 14px 10px 16px;
+  margin-bottom: 10px;
+  border-top: 2px solid #ccc;
+  background: white;
+}
+/* line 38, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+#mc-container-settings form:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 28, scss/pages/_settings.scss */
+#mc-container-settings form input[type=text],
+#mc-container-settings form input[type=email] {
+  width: 100%;
+  height: 42px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 16px;
+}
+/* line 37, scss/pages/_settings.scss */
+#mc-container-settings form input[type=checkbox] {
+  display: block;
+  float: left;
+  width: 25px;
+  height: 25px;
+  margin-right: 16px;
+}
+/* line 47, scss/pages/_settings.scss */
+#mc-container-settings .button {
+  display: block;
+  width: 100%;
+  padding: 21px 0 21px;
+  border-top: 5px solid #69BE28;
+  background: white url(i/icon-compass-large@2x.png) 15px center no-repeat;
+  background-size: auto 30px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  color: #69BE28;
 }

@@ -28,6 +28,8 @@ html {
 
 * { 
     @include box-sizing(border-box);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
 }
 
 /** Mixins **/
@@ -57,5 +59,19 @@ body {
     }
     
     @include transition(padding-top 250ms ease-out);
+    
+    .spinner {
+        display: none;
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        margin-top: -75px;
+        left: 50%;
+        width: 150px;
+        height: 150px;
+        margin-left: -75px;
+        background: rgba(255,255,255,0.9) url(i/ajax-loader.gif) center no-repeat;
+        @include border-radius(2px);
+    }
     
 }

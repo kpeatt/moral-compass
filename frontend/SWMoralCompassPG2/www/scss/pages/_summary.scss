@@ -97,7 +97,8 @@
             width: 30px;
             height: 30px;
             
-            background: #ccc;
+            background: #ccc url(i/icon-carat-down@2x.png) center no-repeat;
+            background-size: auto 10px;
         }
         
         .chart {
@@ -131,10 +132,57 @@
                 
             }
             
+            &.agree {
+                float: left;
+                width: 45px;
+                height: 45px;
+                background: url(i/bg-chart-usersagree.png) center no-repeat;
+                background-size: 45px;
+                margin-top: 0;
+                margin-right: 16px;
+                margin-bottom: 10px;
+            }
+            
         }
         
         .causes {
             display: none;
+            
+            margin-top: 16px;
+            
+            li {
+                padding: 10px 0;
+                border-top: 1px solid #eee;
+                
+                &:before {
+                    position: relative;
+                    top: -2px;
+                    content: '';
+                    display: block;
+                    float: left;
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 16px;
+                    background: #69BE28 url(i/icon-support@2x.png) center no-repeat;
+                    background-size: 10px auto;
+                }
+                
+                &.agree {
+                    color: #69BE28;
+                }
+                
+                &.disagree {
+                    color: #C60033;
+                    &:before {
+                        background: #C60033 url(i/icon-oppose@2x.png) center no-repeat;
+                        background-size: 10px auto;
+                    }
+                }
+            }
+        }
+        
+        &.open:after {
+            background-image: url(i/icon-carat-up@2x.png)
         }
         
         &.open .causes {

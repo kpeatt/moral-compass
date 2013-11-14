@@ -11,8 +11,6 @@ MCApp.getUrlForAPI = function(){
 }
 
 MCApp.currentBarcode = false;
-MCApp.currentCompanyName = false;
-MCApp.currentProductName = false;
 
 /**
  *  Scans a barcode and calls a handler.
@@ -39,12 +37,12 @@ MCApp.handleUpdateAfterCompanyFound = function(){
     alert("update handled");
 }
 
-MCApp.getCurrentBarcode = function(){
-    return MCApp.currentBarcode;
+MCApp.handleScannerCancelOrFail = function(){
+    alert("replace this cancel placeholder function!");
 }
 
-MCApp.getCurrentCompanyName = function(){
-    return MCApp.currentCompanyName;
+MCApp.getCurrentBarcode = function(){
+    return MCApp.currentBarcode;
 }
 
 MCApp.scanBarcodeWithScandit = function(){
@@ -82,8 +80,7 @@ MCApp.scanBarcodeSuccessScandit = function(concatResult){
     var resultArray = concatResult.split("|"); 
     MCApp.currentBarcode = resultArray[1];
     MCApp.getCompanyNameFromBarcode(MCApp.currentBarcode, function(companyName) {
-        MCApp.currentCompanyName = companyName;
-        MCApp.handleUpdateAfterCompanyFound();
+        MCApp.handleUpdateAfterCompanyFound(companyName);
         
     });
 }
@@ -95,6 +92,7 @@ MCApp.scanBarcodeSuccessScandit = function(concatResult){
  */
 MCApp.scanBarcodeFailScandit = function(){
     MCApp.currentBarcode = false;
+    MCApp.handleScannerCancelOrFail();
 }
 
 /**
@@ -103,12 +101,20 @@ MCApp.scanBarcodeFailScandit = function(){
  */
 MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
     MCApp.getCompanyNameFromBarcodeLocal(barcodeStr, function(companyName) {
-        if (companyName)
+        if (companyName) {
+            console.log("Found company locally: " + companyName);
             callback(companyName);
-        else
-            MCApp.getCompanyNameFromBarcodeRemote(barcodeStr, callback);
-        
-        MCApp.currentCompanyName = companyName;
+        } else {
+            MCApp.getCompanyNameFromBarcodeRemote(barcodeStr, function(companyName) {
+                if (companyName) {
+                    console.log("Found company remotely: " + companyName);
+                    callback(companyName);
+                } else {
+                    console.log("Company not found");
+                    callback(false);
+                }
+            });
+        }
     });
 }
 
@@ -119,17 +125,24 @@ MCApp.getCompanyNameFromBarcode = function(barcodeStr, callback){
  */
 MCApp.getCompanyNameFromBarcodeLocal = function(barcodeStr, callback) {
     var code = $.trim(barcodeStr);
-        // more general
-        // 8->3 13->6
-	if (code.indexOf("004800") === 0) callback("Unilever");
-	else if (code.indexOf("055000") === 0) callback("Nestle");
-	else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
-	else if (code.indexOf("038000") === 0) callback("Kellogg");
-        
-        // specific products at startup weekend
-        else if (code == "065633073814") callback("Nature Valley");
-        else if (code == "070847002901") callback("Monster Beverage");
-        else if (code == "057961023517") callback("Sun-Rype Products");
+    if(code == "070847009047"){
+        callback("Startup Weekend");
+        return;
+    }
+
+    // more general
+    // 8->3 13->6
+    if (code.indexOf("004800") === 0) callback("Unilever");
+    else if (code.indexOf("055000") === 0) callback("Nestle");
+    else if (code.indexOf("004229") === 0) callback("Urban Outfitters");
+    else if (code.indexOf("038000") === 0) callback("Kellogg");
+    else if (code.indexOf("057961") === 0) callback("Sun-Rype Products"); 
+    else if (code.indexOf("065633") === 0) callback("Nature Valley");
+
+    // specific products at startup weekend
+    else if (code == "070847002901") callback("Monster Beverage");
+    else if (code == "057961023517") callback("Sun-Rype Products");
+
     else callback(false);
 }
 
@@ -164,53 +177,39 @@ MCApp.getProductInfoFromGoodGuide = function(barcodeStr, callback) {
 }
 
 MCApp.getCompanyNameFromGoodGuideID = function(id, callback) {
+    var companyName;
     console.log("API call: " + 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&id=" + id);
     $.ajax({
             type: "GET",
             url: 'http://api.goodguide.com/search.xml?api_key=' + GOODGUIDE_API_KEY + "&api_version=1.0&id=" + barcodeStr,
             dataType: "xml",
             success: function(xml) {
-                MCApp.currentCompanyName = false;
                 var parents = $xml.find("parents");
                 parents.each(function() {
                     var entity = $(this).find("entity");
                     entity.each(function() {
                         var type = $(this).attr("entity_type");
                         if (type == "company")
-                            MCApp.currentCompanyName = $(entity).find("name");
+                            companyName = $(entity).find("name");
                     });
                 });
 
-                if (MCApp.currentCompanyName) {
-                    callback(MCApp.currentCompanyName);
-                    console.log("Found copmany: " + MCApp.currentCompanyName);
+                if (companyName) {
+                    callback(companyName);
+                    console.log("Found copmany: " + companyName);
                 }
             }
     });
 }
 
-/**
- *  Produces a product name from a barcode result.
- */
-//MCApp.getProductNameFromScandit = function(barcodeStr) {
-//    var SCANDIT_PRODUCT_API_KEY = "j_bi-cHjpvbLQopyEOQjJ068Z8yLf2KXKdrzoBvqX-g";
-//    $.getJSON('https://api.scandit.com/v1/products/' + barcodeStr + '?key=' + SCANDIT_PRODUCT_API_KEY, function(data) {
-//         MCApp.currentProductName = data.name;
-//         MCApp.currentCompanyName = "unknown";
-//         console.log("Found product: " + MCApp.currentProductName);
-//    })
-//    .error(function(jqXHR, textStatus, errorThrown) { alert("Error getting product information: " + errorThrown); });
-//}
-
 MCApp.getProductInfoFromGoogle = function(barcodeStr, callback) {
     var request = "https://www.googleapis.com/shopping/search/v1/public/products?key=" + GOOGLE_API_KEY + "&country=US&restrictBy=gtin%3A" + barcodeStr;
     console.log("API call: " + request);
     $.getJSON(request, function(json) {
-        console.log(json);
         if (json.items) {
             MCApp.currentProductName = json.items[0].product.title;
-            MCApp.currentCompanyName = json.items[0].product.brand;
-            callback(MCApp.currentCompanyName);
+            companyName = json.items[0].product.brand;
+            callback(companyName);
         } else {
             callback(false);
         }
@@ -248,14 +247,14 @@ MCApp.getCompanyBeliefsFromServer = function(companyName){
  */
 MCBeliefDictionary = {};
 MCBeliefDictionary.beliefArray = [
-                                    "same sex marriage",
+                                    "same-sex marriage",
                                     "testing on animals",
                                     "use of child labour",
                                     "government-set minimum wage",
-                                    "healthy living",
-                                    "planet earth",
-                                    "gay marriage",
-                                    "animal rights",
+                                    "government-funded healthcare",
+                                    "renewable energy",
+                                    "climate change",
+                                    "outsourcing labour",
                                     "fair trade",];
 MCBeliefDictionary.getBeliefForId = function(idx){
     if(idx < 0 || idx >= MCBeliefDictionary.beliefArray.length) return "unknown";
@@ -300,7 +299,11 @@ MCBeliefs = function(){
 MCBeliefs.prototype.init = function(){
     for(var i=0; i<MCBeliefDictionary.getNumBeliefs(); i++){
         // sets everything to do not care
-        this.arrayOfBeliefs[i] = MCStance.donotcare();
+        if(!MCApp.isDebug()){
+            this.arrayOfBeliefs[i] = MCStance.donotcare();
+        }else{
+            this.arrayOfBeliefs[i] = Math.random()<.5?MCStance.no():MCStance.yes();
+        }
     }
 }
 
@@ -344,6 +347,10 @@ MCBeliefs.prototype.isFirstTimeSave = function(){
     return window.localStorage.getItem(this.saveKey) == null;
 }
 
+MCBeliefs.prototype.isLoadedFromLastSave = function(){
+    return this.isLoaded;
+}
+
 /**
  *  Save belief stances to local storage.
  *  
@@ -352,7 +359,7 @@ MCBeliefs.prototype.isFirstTimeSave = function(){
  *  void -> boolean
  */
 MCBeliefs.prototype.save = function(){
-    if(!this.isLoaded) return false;
+    if(!this.isLoadedFromLastSave()) return false;
     window.localStorage.setItem(this.saveKey, JSON.stringify(this.getStances()));
     return true;
 }
@@ -384,10 +391,14 @@ MCBeliefs.prototype.getStanceAtIdx = function(idx){
  *  void -> boolean
  */
 MCBeliefs.prototype.load = function(){
-    this.isLoaded = true;
-    if(this.isFirstTimeSave()) this.save();
+    this.setToLoaded();
+    if(this.isFirstTimeSave()){this.save();}
     this.arrayOfBeliefs = JSON.parse(window.localStorage.getItem(this.saveKey));
     return true;
+}
+
+MCBeliefs.prototype.setToLoaded = function(){
+    this.isLoaded = true;
 }
 
 /**
@@ -411,7 +422,7 @@ MCBeliefs.prototype.getNumAgreeToArrayOfCompanyStances = function(stancesArray){
         }
     }
     
-    alert(JSON.stringify(this.getStances())+"\n"+JSON.stringify(stancesArray));
+    //alert(JSON.stringify(this.getStances())+"\n"+JSON.stringify(stancesArray));
     
     return sumMatch;
 }
@@ -442,6 +453,23 @@ MCTest.prototype.getTestStancesFromBarcode = function(barcode){
     var toyData = [];
     for(var i=0; i<size; i++){
         toyData[i] = parseInt(barcode.charAt(i))%3;
+    }
+    
+    return toyData;
+}
+
+MCTest.prototype.getTestStancesFromCompanyName = function(companyName){
+    companyName = companyName.toLocaleString();
+    var size = MCBeliefDictionary.getNumBeliefs();
+    var toyData = [];
+    for(var i=0; i<min(size, companyName.length); i++){
+        toyData[i] = companyName.charAt(i)%3;
+    }
+    
+    if (companyName.length < size) {
+        for(var j=companyName.length; j<size; j++){
+            toyData[j] = 1;
+        }
     }
     
     return toyData;
@@ -519,19 +547,88 @@ MCSummaryViewController = function(){
     this.getPercentUsersAgree = function(){return this.percentUsersAgree;}
     
     /**
+     *  Provides a list of agreement
+     *
+     *  example:
+     *  <ul>
+            <li class="agree">Same-Sex marriage</li>
+            <li class="agree">Testing on animals</li>
+            <li class="agree">Use of child labour</li>
+            <li class="disagree">Government-set minimum wage</li>
+        </ul>
+     */
+    this.getDetailedListHtml = function(arrOfUserStances, arrOfCompanyStances){
+        var arrAgreedIssues = [];
+        var arrDisagreedIssues = [];
+        var maxIdx = Math.min(arrOfUserStances.length, arrOfCompanyStances.length);
+        var i;
+        
+        for(i=0; i<maxIdx; i++){
+            if(arrOfUserStances[i] != MCStance.donotcare() 
+               && arrOfCompanyStances[i] != MCStance.donotcare()){
+                var currBelief = MCBeliefDictionary.getBeliefForId(i);
+                    
+                if(arrOfUserStances[i] == arrOfCompanyStances[i]){
+                    arrAgreedIssues.push(currBelief);
+                }else{
+                    arrDisagreedIssues.push(currBelief);
+                }
+            }
+        }
+        
+        var result = "";
+        for(i=0; i<arrAgreedIssues.length; i++){
+            result = result + '<li class="agree">' + arrAgreedIssues[i] + '</li>';
+        }
+        for(i=0; i<arrDisagreedIssues.length; i++){
+            result = result + '<li class="disagree">' + arrDisagreedIssues[i] + '</li>';
+        }
+        
+        return "<ul>" + result + "</ul>";
+    }
+    
+    /**
+     *  Produces the number of company stances that count.
+     *  
+     *  array(<MCStance>) array(<MCStance>) -> uint
+     */
+    this.getNumOfCausesThatCount = function(arrOfUserStances, arrOfCompanyStances){
+        var total = 0;
+        var maxIdx = Math.min(arrOfUserStances.length, arrOfCompanyStances.length);
+        
+        for(var i=0; i<maxIdx; i++){
+            if(arrOfUserStances[i] != MCStance.donotcare() &&
+                    arrOfCompanyStances[i] != MCStance.donotcare()){
+                total++;
+            }
+        }
+        
+        return total;
+    }
+    
+    /**
      *  Updates the view with the information in this controller.
      *  
      *  void -> void
      */
     this.updateView = function(){
-        var isCompanyKnown = this.getCompanyName() != null && this.getCompanyName() != 'unknown';
         
-        if(this.getDescriptionWord()!="unknown"){
+        if(MCApp.isDebug()){
+            /*
+            this.setPercentUsersAgree(this.getCompanyName().length*2*10%100);
+            */
+            this.setPercentUsersAgree(66);
+        }
+        
+        var isCompanyKnown = this.getCompanyName() != null && this.getCompanyName() != 'unknown';
+        if(isCompanyKnown){
             $('#mc-support-description').html(this.getCompanyName().charAt(0).toUpperCase() 
                                              + this.getCompanyName().slice(1) + " and you are "
                                              + this.getDescriptionWord() + ".");
         }else{
-            $('#mc-support-description').html("We're still learning about " + isCompanyKnown?this.getCompanyName():"this company.");
+            $('#mc-support-description').html("We're still learning about this company.");
+            this.setPercentAgree(50);
+            $('#mc-cause-list').html("none");
         }
         $('#mc-support-user-agree-text-percent').html(Math.floor(this.getPercentAgree())+'%');
         $('#mc-support-others-agree-text-percent').html(Math.floor(this.getPercentUsersAgree())+'%');
@@ -660,27 +757,31 @@ MCSummaryViewController = function(){
 	       </div>
      */
     MCQuizViewController = function(){
+        /*
         this.arrOfIssues =
             ["same-sex marriage",
              "testing on animals",
              "use of child labour",
              "government-set minimum wage"];
+        */
+       this.arrOfIssues = MCBeliefDictionary.beliefArray;
         
         /**
          *  Produces a section that represents a quiz question.
          *  
-         *  string -> string
+         *  string uint -> string
          */
-        this.getHtmlForIssue = function(theIssue){
+        this.getHtmlForIssue = function(theIssue, idx){
             var theIssueSentenceCase = theIssue.charAt(0).toUpperCase() 
                                              + theIssue.slice(1).toLowerCase();
-            var questionSection =
-                '<div class="question mc-quiz-question">\n'+
+            var theDivId = "mc-quiz-question-id-"+idx;
+            var questionSection = 
+                '<div class="question mc-quiz-question" id="'+theDivId+'">\n'+
 	           '<h2>'+theIssueSentenceCase+'</h2>\n'+
 	           '<ul class="choice">\n'+
-	               '<li><a href="#" class="button support">Support</a></li>\n'+
-	               '<li><a href="#" class="button dontcare">Don\'t care</a></li>\n'+
-	               '<li><a href="#" class="button oppose">Oppose</a></li>\n'+
+	               '<li><a href="#" class="button support" onClick="myStances.setStance('+idx+', MCStance.yes()); myStances.save();$(\'#'+theDivId+'\').fadeOut(300,function() { $(\'#'+theDivId+'\').remove(); });">Support</a></li>\n'+
+	               '<li><a href="#" class="button dontcare" onClick="myStances.setStance('+idx+', MCStance.donotcare()); myStances.save();$(\'#'+theDivId+'\').fadeOut(300,function() { $(\'#'+theDivId+'\').remove();});">Don\'t care</a></li>\n'+
+	               '<li><a href="#" class="button oppose" onClick="myStances.setStance('+idx+', MCStance.no()); myStances.save();$(\'#'+theDivId+'\').fadeOut(300,function() { $(\'#'+theDivId+'\').remove();});">Oppose</a></li>\n'+
 	           '</ul>\n</div>\n';
             return questionSection;
         }
@@ -695,11 +796,13 @@ MCSummaryViewController = function(){
          */
         this.produceQuizHtml = function(){
             var result = "";
-            for(var i=0; i<this.arrOfIssues; i++){
-                result = result + this.getHtmlForIssue(this.arrOfIssues[i]);
+            for(var i=0; i<this.arrOfIssues.length; i++){
+                result = result + this.getHtmlForIssue(this.arrOfIssues[i], i);
             }
             return result;
         }
+         
+        $('input').css("-webkit-user-select", "auto");
     }
     
 }

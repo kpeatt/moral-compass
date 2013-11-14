@@ -36,12 +36,12 @@
     </head>
     <body class="mc-container-home">
         
-        <header id="mc-topbar" onclick='debugToggleAndShowSummary();'>
+        <header id="mc-topbar" onclick='//debugToggleAndShowSummary();'>
 	       <h1>MoralCode</h1>
-           <div id="mc-container-search" class="searchbar">
+           <div id="mc-container-search" class="searchbar" onClick="$('#search_text').focus();">
 	       
-	           <input type="search" placeholder="Enter a company name">
-	           <input type="submit" value="Search">
+	           <input id = "search_text" type="search" placeholder="Enter a company name">
+	           <input id = "search_submit" type="submit" value="Search">
 	       
 	       </div>
 	</header>
@@ -49,31 +49,32 @@
         <!-- home -->
         <div id="mc-container-home" class="home">
 	   
-	   <div id="mc-content-home" class="content">
-	       
-	       <nav>
-	           <ul>
-	               <li>
-                        <a href="#" id="mc-button-home-scan" class="button scan">
-	                       Scan a Product
-	                   </a>
-	               </li> 
-	               <li>
-	                   <a href="#" id="mc-button-home-quiz" class="button quiz">
-	                       Set your MoralCode
-	                   </a>
-	               </li>
-	               <li>
-	                   <a href="#" id="mc-button-home-search" class="button search">
-	                       Search for a Company
-	                   </a>
-	               </li>
-	           </ul>
-	           
-	       </nav>
-	       
-	   </div>
-        </div>
+            <div id="mc-content-home" class="content">
+    	       
+    	       <nav>
+    	           <ul>
+    	               <li>
+                            <a href="#" id="mc-button-home-scan" class="button scan">
+    	                       Scan a Product
+    	                   </a>
+    	               </li> 
+    	               <li>
+    	                   <a href="#" id="mc-button-home-quiz" class="button quiz">
+    	                       Set your MoralCode
+    	                   </a>
+    	               </li>
+    	               <li>
+    	                   <a href="#" id="mc-button-home-search" class="button search">
+    	                       Search for a Company
+    	                   </a>
+    	               </li>
+    	           </ul>
+    	           
+    	       </nav>
+    	       
+    	   </div>
+    	   
+       </div>
         <!-- end home -->
         
         <!-- quiz -->
@@ -82,6 +83,7 @@
             
             <h1>Set your MoralCode</h1>
             
+            <div id="mc-quiz-list">
             <div class="question">
             
                <h2>Same-sex marriage:</h2> 
@@ -150,7 +152,7 @@
 	           </ul>
 	           
 	       </div>
-	       
+            </div>
 	   </div>
         </div>
         <!-- end quiz -->
@@ -172,7 +174,7 @@
                     <div class="data" id="mc-summary-chart-data"></div>
                 </div>
                 
-                <div class="causes">
+                <div class="causes" id="mc-cause-list">
                     <ul>
                         <li class="agree">Same-Sex marriage</li>
                         <li class="agree">Testing on animals</li>
@@ -184,17 +186,27 @@
             </div>
             
             <div class="card minor">
-                <div id="mc-support-other-indicator"></div>
+                <div id="mc-support-other-indicator" class="chart agree"></div>
                 <h2 id="mc-support-others-agree-text"><span id="mc-support-others-agree-text-percent">68%</span> of users
                                                      agree with this company.</div>
-            </div>
-            
         </div>
+            
         <!-- end summary -->
         
         <div id="mc-container-login" class="container">login!</div>
         <div id="mc-container-detail" class="container">detail!</div>
-        <div id="mc-container-settings" class="container">settings!</div>
+        <div id="mc-container-settings" class="container">
+            <h1>Enter your account details</h1>
+            <form>
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+                <label for="checkbox"><input type="checkbox" checked> Send me offers from companies that share my causes</label>
+            </form>
+            
+            <a href="#" class="button compass">
+                Reset my MoralCode 
+            </a>
+        </div>
         
         
         <!-- replace with images! -->
@@ -209,6 +221,9 @@
 	           </ul>
 	       </nav>
 	   </footer>
+	   
+	   <div class="spinner">
+       </div>
         
         
         <script type="text/javascript">
@@ -217,6 +232,7 @@
             
             // variable to hold the current stances on beliefs
             var myStances = new MCBeliefs();
+            myStances.load();
             var isSearchOpen = false;
             
             /**
@@ -247,7 +263,7 @@
                 for(var i=0; i<viewIds.length; i++){
                     if(viewIds[i]==viewIdToTest) return true;
                 }
-                alert(viewIdToTest);
+                //alert(viewIdToTest);
                 return false;
             }
                            
@@ -272,6 +288,11 @@
                         $("#"+viewIds[i]).hide();
                         $("body").removeClass(viewIds[i]);
                     }
+                }
+                
+                // special case for quiz
+                if(viewIdToSwitchTo == "mc-container-quiz"){
+                    $('#mc-quiz-list').html(quizView.produceQuizHtml());
                 }
                 
             }
@@ -312,6 +333,39 @@
                     searchOpen();
                 }
             }
+            
+            function mcShowSpinner(){
+                $('.spinner').show();
+            }
+            
+            function mcHideSpinner(){
+                $('.spinner').hide();
+            }
+            
+            function mcSetTestStances(isSWknd){
+                var result;
+                
+                if(isSWknd){
+                    result =
+                        '<ul>'+
+                        '<li class="agree">Awesomeness</li>'+
+                        '<li class="agree">Fun</li>'+
+                        '<li class="agree">Startups</li>'+
+                        '<li class="agree">More awesomeness</li>'+
+                        '</ul>';
+                }else{
+                    result =
+                    '<ul>'+
+                        '<li class="agree">Same-Sex marriage</li>'+
+                        '<li class="agree">Testing on animals</li>'+
+                        '<li class="agree">Use of child labour</li>'+
+                        '<li class="disagree">Government-set minimum wage</li>'+
+                    '</ul>';
+                }
+                
+                $('#mc-cause-list').html(result);
+            }
+            
 
             // home search scan survey setting
             
@@ -328,6 +382,7 @@
             });
             
             $("#mc-link-scan").click(function() {
+                mcShowSpinner();
                 MCApp.scanBarcode();
             });
             
@@ -340,6 +395,7 @@
             });
             
             $("#mc-button-home-scan").click(function(){
+                mcShowSpinner();
                 MCApp.scanBarcode();
             });
             
@@ -354,22 +410,58 @@
             $('#mc-container-summary .card').click(function(){
                $(this).toggleClass("open"); 
             });
+
+$('#search_submit').click(function(){
+    var query = $('#search_text').val();
+    MCApp.handleUpdateAfterCompanyFound(query);
+    toggleSearch();
+    });
             
             
-            // summary view controller
+            // Summary view controller
             var summaryView = new MCSummaryViewController();
             
-            MCApp.handleUpdateAfterCompanyFound = function(){
-                summaryView.setCompanyName(MCApp.getCurrentCompanyName());
-                var barcode = MCApp.getCurrentBarcode();
-                //alert(barcode);
-                var testGen = new MCTest();
-                var testVector = testGen.getTestStancesFromBarcode(barcode);
-                var numAgree = myStances.getNumAgreeToArrayOfCompanyStances(testVector);
-                summaryView.setPercentAgree(numAgree/9);
-                summaryView.setPercentUsersAgree(50);
+            MCApp.handleUpdateAfterCompanyFound = function(companyName){
+                summaryView.setCompanyName(companyName);
+                
+                if (companyName == false) {
+                    summaryView.setCompanyName('unknown');
+                    summaryView.setPercentAgree(0);
+                    summaryView.setPercentUsersAgree(0);
+                    mcSetTestStances(false);
+                }else if(companyName.toLowerCase() == "startup weekend"){
+                    summaryView.setPercentAgree(100);
+                    summaryView.setPercentUsersAgree(100);
+                    mcSetTestStances(true);
+                }else if(companyName == "Sun-Rype Products" && MCApp.isDebug()){
+                    summaryView.setPercentAgree(75);
+                    mcSetTestStances(false);
+                }else{
+                    var barcode = MCApp.getCurrentBarcode();
+                    //alert(barcode);
+                    var testGen = new MCTest();
+                    var testVector = testGen.getTestStancesFromBarcode(barcode);
+                    var numAgree = myStances.getNumAgreeToArrayOfCompanyStances(testVector);
+                    var denom = summaryView.getNumOfCausesThatCount(myStances.getStances(), testVector);
+                    if(denom != 0){
+                        summaryView.setPercentAgree(numAgree/denom*100);
+                    }else{
+                        summaryView.setPercentAgree(50);
+                    }
+                    
+                    summaryView.setPercentUsersAgree(50);
+                    $('#mc-cause-list').html(
+                        summaryView.getDetailedListHtml(myStances.getStances(), testVector)
+                    );
+                    //mcSetTestStances(false);
+                }
                 summaryView.updateView();
+                mcHideSpinner();
                 switchToView("mc-container-summary");
+            }
+            
+            MCApp.handleScannerCancelOrFail = function(){
+                mcHideSpinner();
             }
             
             function debugToggleAndShowSummary(){
@@ -379,6 +471,13 @@
             }
             
             
+           // Quiz view controller
+           var quizView = new MCQuizViewController();
+           
+           $('#mc-quiz-list').html(quizView.produceQuizHtml());
+           $('input')
+            
+           mcHideSpinner();
            switchToView("mc-container-home");
             
         </script>
