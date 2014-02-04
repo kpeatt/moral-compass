@@ -1,0 +1,9 @@
+[
+    {
+        "pk": 1, 
+        "model": "core.cause", 
+        "fields": {
+            "question": "Do you think same-sex couples should have the right to marry?"
+        }
+    }
+]
